@@ -68,7 +68,8 @@ namespace CaroSYSTEM2809
             {
 
                 MySqlConnection conn = null;
-                conn = new MySqlConnection(konfiguracja);
+                 string cs = @"server=localhost;userid=root;password=;database=carosystem";
+                conn = new MySqlConnection(cs);
                 conn.Open();
 
                 string stm = "SELECT VERSION()";
