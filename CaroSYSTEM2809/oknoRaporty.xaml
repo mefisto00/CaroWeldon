@@ -1,0 +1,159 @@
+﻿<Window x:Class="CaroSYSTEM2809.oknoRaporty"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CaroSYSTEM2809"
+        mc:Ignorable="d"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="oknoRaporty" Height="650" Width="1000">
+    <Grid>
+        <Grid Name="uRaportWykaz" Background="#bdbdbd">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>              
+                <RowDefinition Height="*"/>
+               
+            </Grid.RowDefinitions>
+
+            <Grid Background="#0D47A1" Grid.Row="0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="FileCabinet" Foreground="White" Height="40" Width="40" Opacity="0.7" VerticalAlignment="Center" Margin="30,0" />
+                    <TextBlock Text="Umowy i raporty - wykaz" Foreground="White" FontSize="25" Opacity="0.7" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <DataGrid Name="grid_umowy" ItemsSource="{Binding}" Margin="20" AutoGenerateColumns="False" IsReadOnly="True" SelectionUnit="FullRow" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="# id" Binding="{Binding id}"/>
+                        <DataGridTextColumn Header="# umowy" Binding="{Binding numer}"/>
+                        <DataGridTextColumn Header="rozp. umowy" Binding="{Binding dataRozpoczecia, StringFormat=dd.MM.yyyy}"/>
+                        <DataGridTextColumn Header="zako. umowy" Binding="{Binding dataZakonczenia, StringFormat=dd.MM.yyyy}"/>
+                        <DataGridTextColumn Header="klient" Binding="{Binding nazwa}"/>
+                        <DataGridTextColumn Header="realizator" Binding="{Binding osobaZalogowana}"/>
+
+
+                    </DataGrid.Columns>
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1" Background="WhiteSmoke" Height="120">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Name="sprawdzRaport"   Style="{StaticResource MaterialDesignRaisedLightButton}"    Width="300"  Click="SprawdzRaport_Click"    ToolTip="Sprawdz raport">Raport z umowy</Button>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+
+                </DataGrid>
+
+
+            </Grid>
+        </Grid>
+
+        <Grid Name="uRaportWybrany" Background="#bdbdbd">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>               
+                <RowDefinition Height="8*"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Background="#0D47A1" Grid.Row="0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="FileCabinet" Foreground="White" Height="40" Width="40" Opacity="0.7" VerticalAlignment="Center" Margin="30,0" />
+                    <TextBlock Name="txUmowaNumer" Text="Raport dla umowy -  " Foreground="White" FontSize="25" Opacity="0.7" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                        <TextBox Name="poleRSumaCenKontenerow"  materialDesign:HintAssist.Hint="suma cen kontenerów"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                        <TextBox Name="poleRIleKont"  materialDesign:HintAssist.Hint="ile kontenerów"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,0,0" IsReadOnly="True"/>
+                    </StackPanel>
+                    <TextBox Name="poleRSumaTransport"  Grid.Row="1" Grid.Column="0" materialDesign:HintAssist.Hint="suma cen transportu"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRSumaMeble"  Grid.Row="2" Grid.Column="0" materialDesign:HintAssist.Hint="suma cen mebli"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRSumaMontazDemontaz"  Grid.Row="3" Grid.Column="0" materialDesign:HintAssist.Hint="suma cen montaż/demontaż"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRSumaMycie"  Grid.Row="4" Grid.Column="0" materialDesign:HintAssist.Hint="suma cen mycia"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRSumaObciazenia"  Grid.Row="5" Grid.Column="0" materialDesign:HintAssist.Hint="suma cen dodatkowych"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRPrzychod" Grid.Row="6" Grid.Column="0" materialDesign:HintAssist.Hint="suma obciążeń netto"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0"  IsReadOnly="True"/>
+
+
+                    <!-- pole koszty-->
+                    <TextBox Name="poleRKNOgolnie" Grid.Row="0" Grid.Column="1" materialDesign:HintAssist.Hint="suma kosztu netto magaz. itd." Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRKNTrasportu" Grid.Row="1" Grid.Column="1" materialDesign:HintAssist.Hint="koszt netto transportu" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRKNKredAmo" Grid.Row="2" Grid.Column="1" materialDesign:HintAssist.Hint="koszt netto kredytowania, amortyzacji" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRKNMontazDemontaz" Grid.Row="3" Grid.Column="1" materialDesign:HintAssist.Hint="koszt netto montażu" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRKNMycia" Grid.Row="4" Grid.Column="1" materialDesign:HintAssist.Hint="koszt netto mycia" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRKNNapraw" Grid.Row="5" Grid.Column="1" materialDesign:HintAssist.Hint="koszt netto napraw" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRKoszt" Grid.Row="6" Grid.Column="1" materialDesign:HintAssist.Hint="suma kosztów netto " Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+
+                    <!-- pole zysk-->
+                    <TextBox Name="poleRRKont" Grid.Row="0" Grid.Column="2" materialDesign:HintAssist.Hint="różnica z kontenerów" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRRTran" Grid.Row="1" Grid.Column="2" materialDesign:HintAssist.Hint="różnica z transportu" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRRMebleSchody" Grid.Row="2" Grid.Column="2" materialDesign:HintAssist.Hint="różnica z wyposażenia" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRRMonDem" Grid.Row="3" Grid.Column="2" materialDesign:HintAssist.Hint="różnica z mon/demon" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRRMyc" Grid.Row="4" Grid.Column="2" materialDesign:HintAssist.Hint="różnica z mycia" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRRDod" Grid.Row="5" Grid.Column="2" materialDesign:HintAssist.Hint="różnica dodatkowa" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+                    <TextBox Name="poleRRZysk" Grid.Row="6" Grid.Column="2" materialDesign:HintAssist.Hint="Zysk z całości" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MinWidth="100" Margin="5,0,5,0" IsReadOnly="True"/>
+
+                </Grid>
+
+            </Grid>
+            <Grid Grid.Row="2" Background="#546E7A" Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button x:Name="powrotSpisRaportBTN"
+    Style="{StaticResource MaterialDesignRaisedButton}"    Width="210"  ToolTip="Powrót do spisu" Background="#0D47A1" Click="PowrotSpisRaportBTN_Click" >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ArrowBack" Margin="0,0,15,0" VerticalAlignment="Bottom" Width="20" Height="20"/>
+                            <TextBlock Text="Powrót do spisu"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="drukujRaportWordBTN"
+    Style="{StaticResource MaterialDesignRaisedDarkButton}"    Width="210"  ToolTip=" do spisu"  Click="DrukujRaportWordBTN_Click" Margin="0,0,10,0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AlphaWBoxOutline" Margin="0,0,15,0" VerticalAlignment="Bottom" Width="20" Height="20"/>
+                                <TextBlock Text="Eksport do *.docx"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="drukujRaportExcelBTN"
+    Style="{StaticResource MaterialDesignRaisedDarkButton}"    Width="210"  ToolTip="Powrót do spisu"  Click="DrukujRaportExcelBTN_Click" Margin="0,0,10,0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AlphaXBoxOutline" Margin="0,0,15,0" VerticalAlignment="Bottom" Width="20" Height="20"/>
+                                <TextBlock Text="Eksport do *.xlsx"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="drukujRaportPDFBTN"
+    Style="{StaticResource MaterialDesignRaisedDarkButton}"    Width="210"  ToolTip="Powrót do spisu"  Click="DrukujRaportPDFBTN_Click" Margin="0,0,10,0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="FilePdfOutline" Margin="0,0,15,0" VerticalAlignment="Bottom" Width="20" Height="20"/>
+                                <TextBlock Text="Eksport do *.pdf"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

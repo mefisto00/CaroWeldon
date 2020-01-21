@@ -1,0 +1,51 @@
+﻿<Window x:Class="CaroSYSTEM2809.loginBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CaroSYSTEM2809"
+        mc:Ignorable="d"
+           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="loginBox" Height="510" Width="400" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid>
+         
+            <Rectangle Height="280" VerticalAlignment="Top">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#BF360C"/>
+                        <GradientStop Color="#F57C00" Offset="1"/>
+                        <GradientStop Color="#FFFFC775" Offset="0.5"/>
+
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+
+            </Rectangle>
+            <Grid Height="40" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.25*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Foreground="{x:Null}" Background="{x:Null}" BorderThickness="0" Click="Button_Click">
+                    <materialDesign:PackIcon Kind="Close" Grid.Column="1" HorizontalAlignment="Center" Foreground="White" Width="20" Height="30" Opacity="0.8"/>
+                </Button>
+            </Grid>
+            <materialDesign:PackIcon Kind="ShieldAccount" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="White" Margin="50" BorderThickness="2"/>
+            <Rectangle Width="280" Height="240" Fill="White" RadiusX="6" RadiusY="6" VerticalAlignment="Bottom" Margin="0,100">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="30" Direction="275" Opacity="0.8"/>
+                </Rectangle.Effect>
+
+            </Rectangle>
+            <Grid Width="280" Height="240" VerticalAlignment="Bottom" Margin="0,100">
+                <TextBlock Text="witamy" VerticalAlignment="Top" Margin="15" Foreground="SlateGray" FontSize="18" HorizontalAlignment="Center" />
+                <StackPanel VerticalAlignment="Center" Margin="10">
+                    <TextBox Name="logowanie_login" materialDesign:HintAssist.Hint="login" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,10" KeyDown="Logowanie_password_KeyDown"/>
+                    <PasswordBox Name="logowanie_password" materialDesign:HintAssist.Hint="hasło" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Margin="0,10" KeyDown="Logowanie_password_KeyDown"/>
+                </StackPanel>
+            </Grid>
+            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" VerticalAlignment="Bottom" Margin="0,90" Width="150" Content="Zaloguj" Click="Button_Click_1"/>
+            <TextBlock Text="Caro Design Sp. z o.o." Foreground="Gray" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="12" Margin="15"/>
+        </Grid>
+    </Grid>
+</Window>

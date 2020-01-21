@@ -1,0 +1,315 @@
+﻿<Window x:Class="CaroSYSTEM2809.oknoEksplorator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CaroSYSTEM2809"
+        mc:Ignorable="d"
+           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"   
+        Title="Eksplorator" Height="680" Width="1200">
+    <Grid>
+        <Grid>
+            <StackPanel>
+                <Grid Height="600">
+
+                    <Grid Name="E_stronaglowna">
+                        <Grid Height="300">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="250"/>
+
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Column="0" Margin="40" Background="#FF1976D2">
+                                <Button Name="pokazKlientBaza" Background="{x:Null}" BorderBrush="{x:Null}" Height="171" Click="pokazKlientBaza_Click">
+                                    <StackPanel>
+                                        <materialDesign:PackIcon Kind="User" Width="110" Height="120" Foreground="White" Opacity="0.6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Text="KLIENCI" FontSize="25" Foreground="White" Opacity="0.6" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+
+                            <Grid Grid.Column="1" Margin="40" Background="#FF1976D2">
+                                <Button Name="pokazKontenerBaza"  Background="{x:Null}" BorderBrush="{x:Null}" Height="171" Click="pokazKontenerBaza_Click" >
+                                    <StackPanel>
+                                        <materialDesign:PackIcon Kind="PackageVariantClosed" Width="110" Height="120" Foreground="White" Opacity="0.6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Text="KONTENERY" FontSize="25" Foreground="White" Opacity="0.6" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                            <Grid Grid.Column="2" Margin="40" Background="#FF1976D2">
+                                <Button Name="pokazUmowyBaza" Background="{x:Null}" BorderBrush="{x:Null}" Height="171" Click="PokazUmowyBaza_Click">
+                                    <StackPanel>
+
+                                        <materialDesign:PackIcon Kind="FileDocumentBoxMultipleOutline" Width="110" Height="120" Foreground="White" Opacity="0.6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Text="UMOWY" FontSize="25" Foreground="White" Opacity="0.6" HorizontalAlignment="Center"/>
+
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+
+
+
+                        </Grid>
+
+
+
+
+
+                    </Grid>
+
+                    <Grid Name="E_klienci" Background="LightGray">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="ex_poleSzukajKlient" Grid.Column="0" Margin="20,0" materialDesign:HintAssist.Hint="fraza szukana" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyDown="Ex_poleSzukajKlient_KeyDown"/>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                <Button Name="ex_szukajKlientBTN" Grid.Column="1" Content="{materialDesign:PackIcon Magnify}" ToolTip="Przeszukaj klientów pod kątem kryterium" Width="60" Margin="0,0,40,0" Click="Ex_szukajKlientBTN_Click"/>
+                                <Button Name="ex_resetujSzukajKlientBTN" Grid.Column="1" Content="{materialDesign:PackIcon Refresh}" ToolTip="Zresetuj szukanie klientów" Width="60" Margin="40,0,0,0" Click="Ex_resetujSzukajKlientBTN_Click"/>
+                            </StackPanel>                        </Grid>
+                        <DataGrid Name="grid_klient" Grid.Row="1" ItemsSource="{Binding}" Margin="20" AutoGenerateColumns="False" IsReadOnly="True" SelectionUnit="FullRow">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="id" Binding="{Binding id}"/>
+                                <DataGridTextColumn Header="nazwa"   Binding="{Binding nazwa}"/>
+                                <DataGridTextColumn Header="adres" Binding="{Binding adres}"/>
+                                <DataGridTextColumn Header="nip" Binding="{Binding nip}"/>
+                                <DataGridTextColumn Header="telefon" Binding="{Binding telefon}"/>
+                                <DataGridTextColumn Header="e-mail" Binding="{Binding mail}"/>
+                                <DataGridTextColumn Header="osoba kontaktowa" Binding="{Binding osobaKontaktowa}"/>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Nazwa: " FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding nazwa}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Adres korenspondencyjny: " FontWeight="SemiBold"  />
+                                            <TextBlock Text="{Binding adres}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Ocena: " FontWeight="SemiBold"  />
+                                            <TextBlock Text="{Binding ocena}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Ważna data: " FontWeight="SemiBold"  />
+                                            <TextBlock Text="{Binding datawazna, StringFormat=dd.MM.yyyy}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Notatki / uwagi: " FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding notatka}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+
+                        </DataGrid>
+                    </Grid>
+
+
+                    <Grid Name="E_kontenery" Background="LightGray">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition/>
+                                
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="ex_poleSzukajKontener" Grid.Column="0" Margin="20,0" materialDesign:HintAssist.Hint="fraza szukana" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyDown="Ex_poleSzukajKontener_KeyDown"/>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                <Button Name="ex_szukajKontenerBTN" Grid.Column="1" Content="{materialDesign:PackIcon Magnify}" ToolTip="Przeszukaj kontenery pod kątem kryterium" Width="60" Margin="0,0,40,0" Click="Ex_szukajKontenerBTN_Click"/>
+                                <Button Name="ex_resetujSzukajKontenerBTN" Grid.Column="1" Content="{materialDesign:PackIcon Refresh}" ToolTip="Zresetuj przeszukiwanie kontenerów" Width="60" Margin="40,0,0,0" Click="Ex_resetujSzukajKontenerBTN_Click"/>
+                            </StackPanel> 
+                        </Grid>
+                        <DataGrid Name="grid_kont" Grid.Row="1" ItemsSource="{Binding}" Margin="20" AutoGenerateColumns="False" IsReadOnly="True" SelectionUnit="FullRow" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="# id" Binding="{Binding id}"/>
+                                <DataGridTextColumn Header="# caro" Binding="{Binding nrCaro}"/>
+                                <DataGridTextColumn Header="# producenta" Binding="{Binding nrWeldon}"/>
+                                <DataGridTextColumn Header="typ" Binding="{Binding typKontenera}"/>
+                                <DataGridCheckBoxColumn Header="klima" Binding="{Binding czyKlimatyzowany}"/>
+                                <DataGridCheckBoxColumn Header="wynajęty" Binding="{Binding czyWynajety}"/>
+                                <DataGridTextColumn Header="amortyzacja" Binding="{Binding amortyzacja}"/>
+                                <DataGridTextColumn Header="cena netto" Binding="{Binding cenaNetto}"/>
+                            </DataGrid.Columns>
+
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Data zakupu: " FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding dataZakupu, StringFormat=dd.MM.yyyy}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Podstawowe wyposażenie: " FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding podstWyposazenie}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Dodatkowe wyposazenie: " FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding dodatWyposazenie}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Inna lokalizacja: " FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding lokalizacja}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Cena min.: " FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding cenaMinimalna}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Data końca amortyzacji: " FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding dataKoncaAmo,StringFormat=dd.MM.yyyy}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </Grid>
+
+                    <Grid Name="E_umowy" Background="LightGray">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="ex_poleSzukajUmowa" Grid.Column="0" Margin="20,0" materialDesign:HintAssist.Hint="fraza szukana"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyDown="Ex_poleSzukajUmowa_KeyDown" />
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                <Button Name="ex_szukajUmowaBTN" Grid.Column="1" Content="{materialDesign:PackIcon Magnify}"  ToolTip="Przeszukaj umowy pod kątem kryterium"  Width="60" Margin="0,0,40,0" Click="Ex_szukajUmowaBTN_Click"/>
+                                <Button Name="ex_resetujSzukajUmowaBTN" Grid.Column="1" Content="{materialDesign:PackIcon Refresh}" ToolTip="Zresetuj szukanie umów" Width="60" Margin="40,0,0,0" Click="Ex_resetujSzukajUmowaBTN_Click"/>
+                            </StackPanel>
+                          
+                        </Grid>
+                        <DataGrid Name="grid_umowy" Grid.Row="1" ItemsSource="{Binding}" Margin="20" AutoGenerateColumns="False" IsReadOnly="True" SelectionUnit="FullRow" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="# id" Binding="{Binding id}"/>                           
+                                <DataGridTextColumn Header="# umowy" Binding="{Binding numer}"/>
+                                <DataGridTextColumn Header="rozp. umowy" Binding="{Binding dataRozpoczecia, StringFormat=dd.MM.yyyy}"/>
+                                <DataGridTextColumn Header="zako. umowy" Binding="{Binding dataZakonczenia, StringFormat=dd.MM.yyyy}"/>
+                                <DataGridTextColumn Header="klient" Binding="{Binding nazwa}"/>
+                                <DataGridTextColumn Header="realizator" Binding="{Binding osobaZalogowana}"/>
+                                <DataGridCheckBoxColumn Header="czyAneks" Binding="{Binding czyAneks}"/>
+                                
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="pokazUmowaPDF" Style="{StaticResource MaterialDesignFlatButton}" Content="{materialDesign:PackIcon FilePdfBox}" Click="PokazUmowaPDF_Click" ToolTip="Pokaż umowę"  />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                    </Grid>
+
+                </Grid>
+                <Grid Height="50" VerticalAlignment="Bottom" Background="#FF2196F3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Button Background="{x:Null}" BorderBrush="{x:Null}" Name="pokażStronaGlowna"  ToolTip="Strona główna" Click="PokażStronaGlowna_Click">
+                            <materialDesign:PackIcon Kind="Home" Width="40" Height="30"/>
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Button Background="{x:Null}" BorderBrush="{x:Null}"  ToolTip="Klienci" Click="pokazKlientBaza_Click">
+                            <materialDesign:PackIcon Kind="User" Width="40" Height="30"/>
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Button Background="{x:Null}" BorderBrush="{x:Null}"  ToolTip="Kontenery" Click="pokazKontenerBaza_Click">
+                            <materialDesign:PackIcon Kind="PackageVariantClosed" Width="40" Height="25"/>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Button Background="{x:Null}" BorderBrush="{x:Null}" ToolTip="Umowy" HorizontalAlignment="Left" Margin="0,9" Width="132" Click="PokazUmowyBaza_Click">
+                            <materialDesign:PackIcon Kind="FileDocumentBoxMultipleOutline" Width="40" Height="25"/>
+                        </Button>
+                    </Grid>
+
+
+                    <Grid Grid.Column="6">
+                        <Button Name="refresz_klient" Background="DarkBlue" BorderBrush="{x:Null}" Click="Refresz_klient_Click">
+                            <materialDesign:PackIcon Kind="Refresh" Width="40" Height="25"/>
+                        </Button>
+                    </Grid>
+
+
+                    <Grid Grid.Column="6">
+                        <Button Name="refresz_kontener" Background="SteelBlue" BorderBrush="{x:Null}" Click="Refresz_kontener_Click" >
+                            <materialDesign:PackIcon Kind="Refresh" Width="40" Height="25"/>
+                        </Button>
+                    </Grid>
+
+
+                    <Grid Grid.Column="7">
+                        <Button Name="dodajWpisKlient" Background="{x:Null}" BorderBrush="{x:Null}" Click="DodajWpisKlient_Click" >
+                            <materialDesign:PackIcon Kind="UserPlus" Width="40" Height="25"/>
+                        </Button>
+                    </Grid>
+
+
+                    <Grid Grid.Column="7">
+                        <Button Name="dodajWpisKontener" Background="{x:Null}" BorderBrush="{x:Null}" Click="DodajWpisKontener_Click" >
+                            <materialDesign:PackIcon Kind="AddBox" Width="40" Height="25"/>
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Column="8">
+                        <Button Name="edytujWpisKlient" Background="{x:Null}" BorderBrush="{x:Null}" Click="EdytujWpisKlient_Click" >
+                            <materialDesign:PackIcon Kind="DotsVerticalCircleOutline" Width="40" Height="25"/>
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Column="8">
+                        <Button Name="edytujWpisKontener" Background="{x:Null}" BorderBrush="{x:Null}" Click="EdytujWpisKontener_Click" >
+                            <materialDesign:PackIcon Kind="DotsVerticalCircleOutline" Width="40" Height="25"/>
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Column="8">
+                        <Button Name="edytujWpisUmowa" Background="{x:Null}" BorderBrush="{x:Null}" Click="EdytujWpisUmowa_Click" >
+                            <materialDesign:PackIcon Kind="DotsVerticalCircleOutline" Width="40" Height="25"/>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+            </StackPanel>
+
+
+        </Grid>
+    </Grid>
+</Window>
