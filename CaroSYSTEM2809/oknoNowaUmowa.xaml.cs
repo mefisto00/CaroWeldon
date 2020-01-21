@@ -2132,15 +2132,11 @@ namespace CaroSYSTEM2809
 
         public void wypelnijTabeleKlient()
         {
-            string sciezka = "baza.config";
-            string konfiguracja = File.ReadAllText(sciezka);
+            
             try
             {
 
-                MySqlConnection conn = null;
-                conn = new MySqlConnection(konfiguracja);
-                conn.Open();
-
+                MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
                 string stm = "SELECT VERSION()";
                 MySqlCommand cmdlog = new MySqlCommand(stm, conn);
                 cmdlog.Connection = conn;

@@ -59,18 +59,15 @@ namespace CaroSYSTEM2809
 
         public void walidacja(string logi, string hasl)
         {
-            string sciezka = "baza.config";
-            string konfiguracja = File.ReadAllText(sciezka);
+            
             string haslmd5 = kodowanieDoMD5(hasl);
             bool czyPrawidlowe = false;
 
             try
             {
 
-                MySqlConnection conn = null;
-                 string cs = @"server=localhost;userid=root;password=;database=carosystem";
-                conn = new MySqlConnection(cs);
-                conn.Open();
+                MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+                
 
                 string stm = "SELECT VERSION()";
                 MySqlCommand cmdlog = new MySqlCommand(stm, conn);

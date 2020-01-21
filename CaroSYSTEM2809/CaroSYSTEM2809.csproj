@@ -149,6 +149,7 @@
     <Compile Include="oknoRaporty.xaml.cs">
       <DependentUpon>oknoRaporty.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PolaczenieDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
