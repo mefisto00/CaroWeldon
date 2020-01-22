@@ -110,6 +110,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MenadzerUtworzNowaUmoweDB.cs" />
     <Compile Include="eOknoKlient.xaml.cs">
       <DependentUpon>eOknoKlient.xaml</DependentUpon>
     </Compile>
@@ -140,6 +141,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MenadzerKlientDB.cs" />
     <Compile Include="oknoEksplorator.xaml.cs">
       <DependentUpon>oknoEksplorator.xaml</DependentUpon>
     </Compile>
@@ -177,6 +179,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

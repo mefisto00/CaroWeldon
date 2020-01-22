@@ -1,19 +1,9 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
 
 namespace CaroSYSTEM2809
 {
@@ -65,9 +55,9 @@ namespace CaroSYSTEM2809
 
             try
             {
-
-                MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
                 
+                MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+               
 
                 string stm = "SELECT VERSION()";
                 MySqlCommand cmdlog = new MySqlCommand(stm, conn);

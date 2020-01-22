@@ -1,28 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using MySql.Data;
-using MySql.Data.MySqlClient;
-using System.Data;
-using System.IO;
-using Microsoft.Win32;
 using System.Windows.Forms;
-using System.Collections.ObjectModel;
-using System.Collections;
+using System.Windows.Input;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System.Diagnostics;
-using System.Threading;
+using MySql.Data.MySqlClient;
+using System.Windows.Controls;
 
 namespace CaroSYSTEM2809
 {
@@ -32,6 +23,7 @@ namespace CaroSYSTEM2809
     public partial class oknoNowaUmowa : Window
     {
 
+      //  private System.Windows.Controls.DataGrid grid_klient;
 
 
         public class klasaDodatki
@@ -144,17 +136,30 @@ namespace CaroSYSTEM2809
 
         public static string s_login;
 
+        public System.Windows.Controls.DataGrid grid_klient
+        {
+            get;
 
-    public oknoNowaUmowa()
+            private set;
+
+        }
+
+        public oknoNowaUmowa()
     {
     InitializeComponent();
             uHome.Visibility = Visibility.Visible;
             uKontenery.Visibility = Visibility.Collapsed;
             uUmowa.Visibility = Visibility.Collapsed;
-            wypelnijTabeleKlient();
+            this.grid_klient = grid_klient;
+
+            MenadzerKlientDB menadzer = new MenadzerKlientDB(grid_klient);
+                 
+              
 
             poleNowaCenaNetto.Visibility = Visibility.Collapsed;
             wprowadzNowaCenaNettoBTN.Visibility = Visibility.Collapsed;
+
+           
 
         }
 
@@ -166,7 +171,12 @@ namespace CaroSYSTEM2809
               uHome.Visibility = Visibility.Visible;
               uKontenery.Visibility = Visibility.Collapsed;
               uUmowa.Visibility = Visibility.Collapsed;
-              wypelnijTabeleKlient();
+            MenadzerKlientDB menadzer = new MenadzerKlientDB(dgKlient);
+
+
+
+
+
 
             poleNowaCenaNetto.Visibility = Visibility.Collapsed;
             wprowadzNowaCenaNettoBTN.Visibility = Visibility.Collapsed;
@@ -203,10 +213,10 @@ namespace CaroSYSTEM2809
 
 
 
-        }
+    }
 
-       
 
+        
         private void BWybranoKlient_Click(object sender, RoutedEventArgs e)
         {
             uHome.Visibility = Visibility.Collapsed;
@@ -218,6 +228,7 @@ namespace CaroSYSTEM2809
                 DataRowView row = (DataRowView)dgKlient.SelectedItems[0];
                 k_idKlient = Convert.ToInt32(row[0].ToString());
                 wypelnijTabeleKontener();
+                MenadzerKlientDB menadzer = new MenadzerKlientDB(dgKlient);
 
             }
             else
@@ -244,7 +255,8 @@ namespace CaroSYSTEM2809
         {
             // System.Windows.MessageBox.Show("DD");
 
-
+            MenadzerUtworzNowaUmoweDB dodajUmowe = new MenadzerUtworzNowaUmoweDB();
+            dodajUmowe.utworzNowaUmowe();
 
             string sciezka = "baza.config";
             string konfiguracja = File.ReadAllText(sciezka);
@@ -2130,37 +2142,42 @@ namespace CaroSYSTEM2809
             return temp;
         }
 
+      
+        
+    /*   
         public void wypelnijTabeleKlient()
         {
             
-            try
-            {
 
-                MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
-                string stm = "SELECT VERSION()";
-                MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                cmdlog.Connection = conn;
-                cmdlog.CommandText = "select * from klient;";
-                cmdlog.Prepare();
 
-                cmdlog.ExecuteNonQuery();
-                MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                //DataTable dt = new DataTable();
-                DataTable dt = new DataTable();
+            //try
+            //{
 
-                da.Fill(dt);
-                dgKlient.DataContext = dt;
+            //    MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+            //    string stm = "SELECT VERSION()";
+            //    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+            //    cmdlog.Connection = conn;
+            //    cmdlog.CommandText = "select * from klient;";
+            //    cmdlog.Prepare();
 
-            }
-            catch (MySqlException se)
-            {
-                System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-            }
+            //    cmdlog.ExecuteNonQuery();
+            //    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
+            //    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
+            //    //DataTable dt = new DataTable();
+            //    DataTable dt = new DataTable();
+
+            //    da.Fill(dt);
+            //    dgKlient.DataContext = dt;
+
+            //}
+            //catch (MySqlException se)
+            //{
+            //    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+            //}
 
 
         }
-
+*/
         public void wypelnijTabeleKontener()
         {
             string sciezka = "baza.config";
@@ -2274,7 +2291,9 @@ namespace CaroSYSTEM2809
 
         private void ResetSzukajNowaUmowaKlientBTN_Click(object sender, RoutedEventArgs e)
         {
-            wypelnijTabeleKlient();
+            MenadzerKlientDB menadzer = new MenadzerKlientDB(grid_klient);
+
+
             poleKlientSzukaj.Text = "";
         }
 
@@ -2359,7 +2378,7 @@ namespace CaroSYSTEM2809
             uHome.Visibility = Visibility.Visible;
             uKontenery.Visibility = Visibility.Collapsed;
             uUmowa.Visibility = Visibility.Collapsed;
-            wypelnijTabeleKlient();
+            MenadzerKlientDB menadzer = new MenadzerKlientDB(dgKlient);
         }
 
         private void BPowrotDoKOntenerow_Click(object sender, RoutedEventArgs e)
