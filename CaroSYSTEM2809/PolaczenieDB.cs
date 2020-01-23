@@ -12,7 +12,7 @@ namespace CaroSYSTEM2809
 
         public static MySqlConnection polaczenieZBazaDanych()
         {
-            string cs = @"server=localhost;userid=root;password=MSItech@@AND//++//9134;database=carosystem";
+            string cs = @"server=localhost;userid=root;password=haslo_dostepowe;database=nazwa_bazy_danych";
             var conn = new MySqlConnection(cs);
             conn.Open();
             return conn;
