@@ -9,28 +9,51 @@ using MySql.Data.MySqlClient;
 
 namespace CaroSYSTEM2809
 {
- public partial class MenadzerKlientDB : PolaczenieDB
+    public partial class MenadzerKlientDB : PolaczenieDB
+    {
 
-    { 
-        private DataGrid grid_klient;
-
-       
+        //  tomasz.wydro @weldon.pl
 
 
-        public MenadzerKlientDB( DataGrid grid_klient )
+
+      //  private DataGrid dgKlient;
+        private int idKlient;
+
+        /*   public System.Windows.Controls.DataGrid DgKlient
+           {
+               get { return dgKlient; }
+               set { dgKlient = value; }
+
+           }
+
+       */
+        public MenadzerKlientDB(DataGrid dgKlient)
         {
-            this.grid_klient = grid_klient;
-            wypelnijTabeleKlient(this.grid_klient);
+
+            wypelnijTabeleKlient(dgKlient);
 
 
         }
 
-        public void wypelnijTabeleKlient(DataGrid grid_klient)
+
+
+        public MenadzerKlientDB(int idklient)
+        {
+            this.idKlient = idklient;
+
+
+        }
+
+
+
+
+
+        private void wypelnijTabeleKlient(DataGrid dgKlient)
         {
             try
             {
-                
-                MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+                //   PolaczenieDB polaczenieDB = new PolaczenieDB();
+                MySqlConnection conn = polaczenieZBazaDanych();
                 string stm = "SELECT VERSION()";
                 MySqlCommand cmdlog = new MySqlCommand(stm, conn);
                 cmdlog.Connection = conn;
@@ -41,10 +64,17 @@ namespace CaroSYSTEM2809
                 MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
                 MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
                 DataTable dt = new DataTable();
+                //   DataGrid grid_klient = new DataGrid();
 
                 da.Fill(dt);
-                grid_klient.DataContext = dt;
-                conn.Close();
+                // grid_klient = new DataGrid();
+
+
+
+
+                //    grid_klient.DataContext = dt;
+
+                // conn.Close();
 
             }
             catch (MySqlException se)
@@ -53,15 +83,47 @@ namespace CaroSYSTEM2809
             }
 
 
-                
+
+
+        }
+        public void pobierzListeKontenerow(List<Kontener> listaKontener, int idUmowy)
+        {
+            
+            foreach (var item in listaKontener)
+            {
+
+                try
+                {
+
+                    MySqlConnection conn = polaczenieZBazaDanych();
+                    string stm = "SELECT VERSION()";
+                    MySqlCommand cmdKontener = new MySqlCommand(stm, conn);
+                    cmdKontener.CommandText = "UPDATE kontener SET idumowy=@idumowy, idklienta=@idklienta, czyWynajety=1 WHERE id=@idkont";
+                    cmdKontener.Prepare();
+                    cmdKontener.Parameters.AddWithValue("@idumowy", idUmowy);
+                    cmdKontener.Parameters.AddWithValue("@idklienta", idKlient);
+                    cmdKontener.Parameters.AddWithValue("@idkont", item.Ko_Id);
+                    cmdKontener.ExecuteNonQuery();
+
+                    //Console.WriteLine("CHUJ CHUJ" + item.ko_id);
+
+                }
+                catch (MySqlException se)
+                {
+                    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+                }
+            }
+
+       
+
 
         }
 
-
-
-
     }
-
-
-
 }
+
+    
+
+
+
+
