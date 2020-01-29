@@ -52,9 +52,9 @@ namespace CaroSYSTEM2809
         }
         public void generatorPDF(string nrUmowy, string dataRozpUm, string dataZakUm, int idKlient, int idUmowy, string knazwa, string kadres, string kkontakt, string knip, double razem, string xsciezka, string r_kontenerID,
         string r_dodatekID, string dataPodpisaniaUmowy, string osobaDecyzyjna, string cenaTranDoc, string miejsceWynajmu, string cenaTranPowr, string cenaMycia, string cenaTransDocSchPod, string cenaTransPowSchPod, string cenaMontaz, string cenaDemontaz, string rozpiecie, string cenaMontazSchodow,
-            string cenaDemontazSchodow, string cenaMontazPodest, string cenaDemontazPodestow, string cenaPraceDodatkowe, string poziomowanie, string miejsceZwrotuKontenera, DateTime theDate, string kaucja, string fakturowanie, string terminPlatnosci)
+            string cenaDemontazSchodow, string cenaMontazPodest, string cenaDemontazPodestow, string cenaPraceDodatkowe, string poziomowanie, string miejsceZwrotuKontenera, DateTime theDate, string kaucja, string fakturowanie, string terminPlatnosci, List<Kontener> listaKontener, List<Dodatki> listaDodatki)
         {
-            List<Dodatki> listaDodatki = new List<Dodatki>();
+         //   List<Dodatki> listaDodatki = new List<Dodatki>();
 
             BaseFont bf = BaseFont.CreateFont(font, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             //  BaseFont bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
@@ -72,7 +72,7 @@ namespace CaroSYSTEM2809
             CNaglowek.Font = new Font(bf2, 13f);
             CNaglowek.Add("UMOWA NAJMU KONTENERÓW nr  U/" + nrUmowy + "/2019\n");
 
-            List<Kontener> listaKontener = new List<Kontener>();
+          //  List<Kontener> listaKontener = new List<Kontener>();
             foreach (var item in listaKontener)
             {
                 CNaglowek.Add("\nKONTENER TYP: " + item.Ko_Typkontenera.ToString() + " O NR " + item.Ko_Numercaro.ToString() + " / " + item.Ko_Numerweldon.ToString() + "");
@@ -84,6 +84,7 @@ namespace CaroSYSTEM2809
 
 
             MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+            conn.Open();
             string stm = "SELECT VERSION()";
             MySqlCommand cmdlog1 = new MySqlCommand(stm, conn);
             cmdlog1.Connection = conn;
@@ -560,7 +561,7 @@ namespace CaroSYSTEM2809
                 dtab1.AddCell((new Phrase(xint.ToString(), new Font(bf, 11))));
                 dtab1.AddCell((new Phrase(item.DNazwadodatku.ToString(), new Font(bf, 11))));
                 dtab1.AddCell((new Phrase(" ", new Font(bf, 11))));
-                dtab1.AddCell((new Phrase(item.diloscdodatku.ToString(), new Font(bf, 11))));
+                dtab1.AddCell((new Phrase(item.DIloscdodatku.ToString(), new Font(bf, 11))));
                 dtab1.AddCell((new Phrase(item.DCenadodatku.ToString(), new Font(bf, 11))));
                 dtab1.AddCell((new Phrase(" ", new Font(bf, 11))));
                 double wynikwiersza = item.DCenadodatku * item.DIloscdodatku;

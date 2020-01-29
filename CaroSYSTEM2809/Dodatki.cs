@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace CaroSYSTEM2809
 {
-    class Dodatki
+  public  class Dodatki
     {
 
 
         private int did;
         private string dnazwadodatku;
         private double dcenadodatku;
-        public int diloscdodatku;
+        private int diloscdodatku;
 
 
         public int DId { get; set; }
@@ -23,12 +23,12 @@ namespace CaroSYSTEM2809
 
         public Dodatki() { }
 
-        public Dodatki(int id, string nazwa, double cena, int ilosc)
+        public Dodatki(int did, string dnazwadodatku, double dcenadodatku, int diloscdodatku)
         {
-            did = id;
-            dnazwadodatku = nazwa;
-            dcenadodatku = cena;
-            diloscdodatku = ilosc;
+            this.did = DId;
+            this.dnazwadodatku = dnazwadodatku;
+            this.dcenadodatku = dcenadodatku;
+            this.diloscdodatku = diloscdodatku;
 
 
 

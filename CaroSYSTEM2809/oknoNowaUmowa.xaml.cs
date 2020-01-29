@@ -91,6 +91,7 @@ namespace CaroSYSTEM2809
         private string login;
         private string dataPodpisaniaUmowy;
         private string osobaDecyzyjna;
+        private string uwagi;
 
         public int temp_id;
         public string temp_numercaro;
@@ -107,6 +108,7 @@ namespace CaroSYSTEM2809
         public string temp_datazakupukontenera;
         public string temp_datakoncaamortyzacji;
         public string temp_notatka;
+        
 
 
         private Kontener kontener;
@@ -119,7 +121,14 @@ namespace CaroSYSTEM2809
 
         }
 
+        public string Uwagi
+        {
+            get { return uwagi; }
 
+            private set { uwagi = poleUwagi.Text; }
+
+
+        }
 
         public string TerminPlatnosci
         {
@@ -641,7 +650,7 @@ namespace CaroSYSTEM2809
 
 
 
-            //    odswiezPokazDodatki();
+                odswiezPokazDodatki();
 
             //   poleListaNowaIlosc.Visibility = Visibility.Collapsed;
             //   poleListaNowaCena.Visibility = Visibility.Collapsed;
@@ -689,33 +698,33 @@ namespace CaroSYSTEM2809
         {
             // System.Windows.MessageBox.Show("DD");
 
-            MenadzerUtworzNowaUmoweDB dodajUmowe = new MenadzerUtworzNowaUmoweDB();
-            GeneratorPDF objgeneratorPDF = new GeneratorPDF();
+            var dodajUmowe = new MenadzerUtworzNowaUmoweDB();
+            var objgeneratorPDF = new GeneratorPDF();
             MenadzerKlientDB menadzerKlientDB = new MenadzerKlientDB(dgKlient);
-               
+          
+
+            var listaKontener2 = new List<Kontener>();
 
 
 
 
-
-
-            dodajUmowe.utworzNowaUmowe(cenaMeble, kosztMeble, cenaTranDoc,
+            listaKontener2 =  dodajUmowe.utworzNowaUmowe(listaKontener, cenaMeble, kosztMeble, cenaTranDoc,
             kosztTranDoc, cenaTranPowr, kosztTranPowr, cenaPodestySchody, kosztPodestySchody, cenaMontaz, kosztMontaz,
             cenaDemontaz, kosztDemontaz, cenaMycia, kosztMycia, cenaDodatkowa, kosztDodatkowy, kaucja, cenaTransDocSchPod, kosztTransDocSchPod, cenaTransPowSchPod, kosztTransPowSchPod, cenaMontazPodest, kosztMontazPodest, cenaMontazSchodow, kosztMontazSchodow,
             poziomowanie, cenaDemontazSchodow, kosztDemontazSchodow, cenaDemontazPodestow, kosztDemontazPodestow,
-            cenaPraceDodatkowe, nrUmowy, dataRozpUm, dataZakUm, czyAneks, numerUmowyAneksu, login, idKlient, IdUmowy);
+            cenaPraceDodatkowe, nrUmowy, dataRozpUm, dataZakUm, czyAneks, numerUmowyAneksu, login, idKlient, IdUmowy,terminPlatnosci,fakturowanie,uwagi,miejsceWynajmu,MiejsceZwrotuKontenera,osobaDecyzyjna,idKlient);
 
              objgeneratorPDF.generatorPDF(nrUmowy,dataRozpUm,dataZakUm, idKlient,idUmowy,knazwa,kadres, kkontakt, knip, razem ,  xsciezka, r_kontenerID ,  r_dodatekID, dataPodpisaniaUmowy, osobaDecyzyjna, cenaTranDoc, miejsceWynajmu, cenaTranPowr , cenaMycia, cenaTransDocSchPod, cenaTransPowSchPod, cenaMontaz , cenaDemontaz, rozpiecie, cenaMontazSchodow , cenaDemontazSchodow , cenaMontazPodest , cenaDemontazPodestow , cenaPraceDodatkowe, poziomowanie , miejsceZwrotuKontenera, theDate, kaucja ,
-                 fakturowanie, terminPlatnosci);
+                 fakturowanie, terminPlatnosci, listaKontener2, listaDodatki );
 
-            menadzerKlientDB.pobierzListeKontenerow(listaKontener, IdUmowy);
-     
-      }
+            menadzerKlientDB.pobierzListeKontenerow(listaKontener: listaKontener2, idUmowy: idUmowy, idKlient: idKlient);
+
+        }
         private void DodajDoZestawieniaBTN_Click(object sender, RoutedEventArgs e)
         {
-           DataRowView row = (DataRowView)dgKontener.SelectedItems[0];
-           string idWybrKont = row[0].ToString();
-         
+            DataRowView row = (DataRowView)dgKontener.SelectedItems[0];
+            string idWybrKont = row[0].ToString();
+
             try
             {
                 MySqlConnection conn2 = PolaczenieDB.polaczenieZBazaDanych();
@@ -755,8 +764,10 @@ namespace CaroSYSTEM2809
             {
                 System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
             }
-        }
 
+        }
+           
+        
         private void BlistaUsun_Click(object sender, RoutedEventArgs e)
         {
 
@@ -777,7 +788,7 @@ namespace CaroSYSTEM2809
 
         }
 
-        public void odswiezPokaz()
+       public  void odswiezPokaz()
         {
             var source = new BindingSource();
             ObservableCollection<Kontener> collection = new ObservableCollection<Kontener>(listaKontener);
@@ -1033,11 +1044,11 @@ namespace CaroSYSTEM2809
 
                 if (!string.IsNullOrEmpty(poleListaNowaIlosc.Text))
                 {
-                    temp1.diloscdodatku = Convert.ToInt16(poleListaNowaIlosc.Text);
+                    temp1.DIloscdodatku = Convert.ToInt16(poleListaNowaIlosc.Text);
 
                 }
-                else temp1.diloscdodatku = 0;
-                Console.WriteLine("Wprowadzone ilosc: " + temp1.diloscdodatku);
+                else temp1.DIloscdodatku = 0;
+                Console.WriteLine("Wprowadzone ilosc: " + temp1.DIloscdodatku);
             }
 
             poleListaNowaCena.Text = "";

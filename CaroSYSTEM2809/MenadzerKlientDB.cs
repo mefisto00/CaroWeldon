@@ -86,7 +86,7 @@ namespace CaroSYSTEM2809
 
 
         }
-        public void pobierzListeKontenerow(List<Kontener> listaKontener, int idUmowy)
+        public List<Kontener> pobierzListeKontenerow(List<Kontener> listaKontener, int idUmowy, int idKlient)
         {
             
             foreach (var item in listaKontener)
@@ -114,8 +114,8 @@ namespace CaroSYSTEM2809
                 }
             }
 
-       
 
+            return listaKontener;
 
         }
 

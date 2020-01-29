@@ -449,10 +449,10 @@
                         <ListView Name="lsDodatki" ItemsSource="{Binding}" Margin="20,0" Grid.Row="14" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Background="WhiteSmoke" SelectionMode="Single"  >
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn        DisplayMemberBinding="{Binding dnazwadodatku}"        Header="nazwa " />
+                                    <GridViewColumn        DisplayMemberBinding="{Binding DNazwadodatku}"        Header="nazwa" />
 
-                                    <GridViewColumn        DisplayMemberBinding="{Binding diloscdodatku}"        Header="ilość" />
-                                    <GridViewColumn        DisplayMemberBinding="{Binding dcenadodatku}"        Header="cena jednostkowa" />                                    
+                                    <GridViewColumn        DisplayMemberBinding="{Binding DIloscdodatku}"        Header="ilość" />
+                                    <GridViewColumn        DisplayMemberBinding="{Binding DCenadodatku}"        Header="cena jednostkowa" />                                    
                                     <GridViewColumn>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>

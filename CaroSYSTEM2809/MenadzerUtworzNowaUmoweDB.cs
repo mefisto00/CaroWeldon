@@ -13,13 +13,13 @@ namespace CaroSYSTEM2809
 
 
 
-        public void utworzNowaUmowe(string polecenaMeble, string kosztMeble, string cenaTranDoc,
+        public List<Kontener> utworzNowaUmowe(List<Kontener>listaKontener,   string polecenaMeble, string kosztMeble, string cenaTranDoc,
            string kosztTranDoc, string cenaTranPowr, string kosztTranPowr, string cenaPodestySchody, string kosztPodestySchody, string cenaMontaz, string kosztMontaz,
             string cenaDemontaz, string kosztDemontaz, string cenaMycia, string kosztMycia, string cenaDodatkowa, string kosztDodatkowy, string kaucja, string cenaTransDocSchPod, string kosztTransDocSchPod, string cenaTransPowSchPod, string kosztTransPowSchPod, string cenaMontazPodest, string kosztMontazPodest, string cenaMontazSchodow, string kosztMontazSchodow,
-        string poziomowanie, string cenaDemontazSchodow, string kosztDemontazSchodow, string cenaDemontazPodestow, string kosztDemontazPodestow, string cenaPraceDodatkowe, string nrUmowy, string dataRozpUm, string dataZakUm, bool czyAneks, string numerUmowyAneksu, string login,int idKlient , int idUmowy )
+        string poziomowanie, string cenaDemontazSchodow, string kosztDemontazSchodow, string cenaDemontazPodestow, string kosztDemontazPodestow, string cenaPraceDodatkowe, string nrUmowy, string dataRozpUm, string dataZakUm, bool czyAneks, string numerUmowyAneksu, string login,int idKlient , int idUmowy,string terminPlatnosci,string fakturowanie,string uwagi,string miejsceWynajmu,string miejsceZwrotuKontenera, string osobaDecyzyjna,int idklient)
         {
 
-            List<Kontener> listaKontener = new List<Kontener>();
+         //   List<Kontener> listaKontener = new List<Kontener>();
 
             try
             {
@@ -340,6 +340,32 @@ namespace CaroSYSTEM2809
                 {
                     cmd1.Parameters.AddWithValue("@cenaPraceDodatkowe", 0);
                 }
+
+
+                cmd1.Parameters.AddWithValue("@terminZaplaty", terminPlatnosci);
+                cmd1.Parameters.AddWithValue("@fakturowanie", fakturowanie);
+                DateTime theDate = DateTime.Now;
+                theDate.ToString("yyyy-MM-dd H:mm:ss");
+                cmd1.Parameters.AddWithValue("@dataWystawienia", theDate);
+                cmd1.Parameters.AddWithValue("@notatka", uwagi);
+                cmd1.Parameters.AddWithValue("@miejsceWynajmu", miejsceWynajmu);
+                cmd1.Parameters.AddWithValue("@miejsceZwrotuKontenera", miejsceZwrotuKontenera);
+
+                cmd1.Parameters.AddWithValue("@osobaDecyzyjna", osobaDecyzyjna);
+
+                cmd1.Parameters.AddWithValue("@idklienta",idKlient);
+                cmd1.ExecuteNonQuery();
+
+                cmd2.Connection = conn;
+                cmd2.CommandText = "SELECT id FROM umowa WHERE numer=@numer";
+                cmd2.Prepare();
+                cmd2.Parameters.AddWithValue("@numer", nrUmowy);
+
+               idUmowy = Convert.ToInt32(cmd2.ExecuteScalar());
+
+
+
+
                 foreach (var item in listaKontener)
                 {
 
@@ -367,12 +393,13 @@ namespace CaroSYSTEM2809
 
                    
                 }
-            }catch (MySqlException de) 
+            }catch (MySqlException se) 
 
             {
 
 
             }
+            return listaKontener;
         }    
         private string przecinekNaKropke(string wejscie)
         {
