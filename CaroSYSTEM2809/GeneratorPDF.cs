@@ -17,7 +17,7 @@ using MySql.Data.MySqlClient;
 
 namespace CaroSYSTEM2809
 {
-   public  class GeneratorPDF
+   public  class GeneratorPDF: PolaczenieDB
     {
 
 
@@ -83,7 +83,7 @@ namespace CaroSYSTEM2809
 
 
 
-            MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+            MySqlConnection conn = polaczenieZBazaDanych();
             conn.Open();
             string stm = "SELECT VERSION()";
             MySqlCommand cmdlog1 = new MySqlCommand(stm, conn);

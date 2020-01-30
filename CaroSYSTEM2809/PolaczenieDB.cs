@@ -9,7 +9,7 @@ namespace CaroSYSTEM2809
 {
    public class PolaczenieDB
     {
-
+        //tworze statyczne polaczenie z baza danych i zwracam otwarte polaczenie 
         public static MySqlConnection polaczenieZBazaDanych()
         {
             string cs = @"server=localhost;user=root;password=;database=carosystem";

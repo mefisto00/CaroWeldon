@@ -36,7 +36,7 @@ namespace CaroSYSTEM2809
         private string r_dodatekID;
 
         //  public static string s_login;
-
+        
 
         private DateTime theDate;
         private string cenaMeble;
@@ -81,6 +81,8 @@ namespace CaroSYSTEM2809
 
         private string cenaPraceDodatkowe;
         private string rozpiecie;
+        private string klientSzukaj;
+        private string kontenerSzukaj;
 
 
         private string nrUmowy;
@@ -93,27 +95,152 @@ namespace CaroSYSTEM2809
         private string osobaDecyzyjna;
         private string uwagi;
 
-        public int temp_id;
-        public string temp_numercaro;
-        public string temp_numerweldon;
-        public string temp_amortyzacjakontenera;
-        public string temp_cenanetto;
-        public string temp_typkontenera;
-        public string temp_czyklimatyzowany;
-        public string temp_czywynajety;
-        public string temp_podstawowewyposazeniekontenera;
-        public string temp_dodatkowewyposazeniekontenera;
-        public string temp_lokalizacja;
-        public string temp_cenaminimalna;
-        public string temp_datazakupukontenera;
-        public string temp_datakoncaamortyzacji;
-        public string temp_notatka;
+        private int tempId;
+        private string tempNumerCaro;
+        private string tempNumerWeldon;
+        private string tempAmortyzacjaKontenera;
+        private string tempCenaNetto;
+        private string tempTypKontenera;
+        private string tempCzyKlimatyzowany;
+        private string tempCzyWynajety;
+        private string tempPodstawoweWyposazenieKontenera;
+        private string tempDodatkoweWyposazenieKontenera;
+        private string tempLokalizacja;
+        private string tempCenaMinimalna;
+        private string tempDataZakupuKontenera;
+        private string tempDataKoncaAmortyzacji;
+        private string tempNotatka;
         
 
 
         private Kontener kontener;
 
-        public  Kontener Kontener
+
+        
+         public string KontenerSzukaj
+        {
+            get { return kontenerSzukaj; }
+
+            private set { kontenerSzukaj = poleKontenerSzukaj.Text; }
+        }
+
+
+        public string KlientSzukaj
+        {
+            get { return klientSzukaj; }
+
+            private set { klientSzukaj = poleKlientSzukaj.Text; }
+        }
+
+        public int TempId
+        {
+            get { return tempId; }
+
+            private set { tempId = value; }
+
+        }
+        public string TempNumerCaro
+        {
+            get { return tempNumerCaro; }
+
+            private set { tempNumerCaro = value; }
+
+        }
+        public string TempNumerWeldon
+        {
+            get { return tempNumerWeldon; }
+
+            private set { tempNumerWeldon = value; }
+
+        }
+        public string TempAmortyzacjaKontenera
+        {
+            get { return tempAmortyzacjaKontenera; }
+
+            private set { tempAmortyzacjaKontenera = value; }
+
+        }
+        public string TempCenanetto
+        {
+            get { return tempCenaNetto; }
+
+            private set { tempCenaNetto = value; }
+
+        }
+        public string TempTypKontenera
+        {
+            get { return tempTypKontenera; }
+
+            private set { tempTypKontenera = value; }
+
+        }
+        public string TempCzyKlimatyzowany
+        {
+            get { return tempCzyKlimatyzowany; }
+
+            private set { tempCzyKlimatyzowany = value; }
+
+        }
+        public string TempCzyWynajety
+        {
+            get { return tempCzyWynajety; }
+
+            private set { tempCzyWynajety = value; }
+
+        }
+        public string TempPodstawoweWyposazenieKontenera
+        {
+            get { return tempPodstawoweWyposazenieKontenera; }
+
+            private set { tempPodstawoweWyposazenieKontenera = value; }
+
+        }
+        public string TempDodatkoweWyposazenieKontenera
+        {
+            get { return tempDodatkoweWyposazenieKontenera; }
+
+            private set { tempDodatkoweWyposazenieKontenera = value; }
+
+        }
+        public string TempLokalizacja
+        {
+            get { return tempLokalizacja; }
+
+            private set { tempLokalizacja = value; }
+
+        }
+        public string TempCenaMinimalna
+        {
+            get { return tempCenaMinimalna; }
+
+            private set { tempCenaMinimalna = value; }
+
+        }
+        public string TempDataZakupuKontenera
+        {
+            get { return tempDataZakupuKontenera; }
+
+            private set { tempDataZakupuKontenera = value; }
+
+        }
+        public string TempDataKoncaAmortyzacji
+        {
+            get { return tempDataKoncaAmortyzacji; }
+
+            private set { tempDataKoncaAmortyzacji = value; }
+
+        }
+        public string TempNotatka
+        {
+            get { return tempNotatka; }
+
+            private set { tempNotatka = value; }
+
+        }
+
+
+
+public  Kontener Kontener
         {
             get { return kontener; }
 
@@ -600,7 +727,7 @@ namespace CaroSYSTEM2809
         public oknoNowaUmowa()
         {
             InitializeComponent();
-            MenadzerKlientDB menadzer = new MenadzerKlientDB(dgKlient);
+            MenadzerDB menadzer = new MenadzerDB(dgKlient);
             // menadzer.DgKlient = dgKlient;    
 
             //  uHome.Visibility = Visibility.Visible;
@@ -616,7 +743,7 @@ namespace CaroSYSTEM2809
         {
             InitializeComponent();
             this.login = login;
-            MenadzerKlientDB menadzer = new MenadzerKlientDB(dgKlient);
+            MenadzerDB menadzer = new MenadzerDB(dgKlient);
             //    menadzer.DgKlient = dgKlient;
             //    uHome.Visibility = Visibility.Visible;
             //    uKontenery.Visibility = Visibility.Collapsed;
@@ -666,7 +793,7 @@ namespace CaroSYSTEM2809
             {
                 DataRowView row = (DataRowView)dgKlient.SelectedItems[0];
                 idKlient = Convert.ToInt32(row[0].ToString());
-                MenadzerKlientDB menadzer = new MenadzerKlientDB(dgKlient);
+                MenadzerDB menadzer = new MenadzerDB(dgKlient);
 
 
             }
@@ -674,7 +801,7 @@ namespace CaroSYSTEM2809
             {
 
                 int idKlient = 999999;
-                MenadzerKlientDB menadzer = new MenadzerKlientDB(idKlient);
+                MenadzerDB menadzer = new MenadzerDB(idKlient);
             }
         }
 
@@ -700,73 +827,82 @@ namespace CaroSYSTEM2809
 
             var dodajUmowe = new MenadzerUtworzNowaUmoweDB();
             var objgeneratorPDF = new GeneratorPDF();
-            MenadzerKlientDB menadzerKlientDB = new MenadzerKlientDB(dgKlient);
+            MenadzerDB menadzerDB = new MenadzerDB(dgKlient);
           
 
             var listaKontener2 = new List<Kontener>();
 
 
 
+            //tworze nowa umowe w klasie MUtworzNowaUmowe
 
             listaKontener2 =  dodajUmowe.utworzNowaUmowe(listaKontener, cenaMeble, kosztMeble, cenaTranDoc,
             kosztTranDoc, cenaTranPowr, kosztTranPowr, cenaPodestySchody, kosztPodestySchody, cenaMontaz, kosztMontaz,
             cenaDemontaz, kosztDemontaz, cenaMycia, kosztMycia, cenaDodatkowa, kosztDodatkowy, kaucja, cenaTransDocSchPod, kosztTransDocSchPod, cenaTransPowSchPod, kosztTransPowSchPod, cenaMontazPodest, kosztMontazPodest, cenaMontazSchodow, kosztMontazSchodow,
             poziomowanie, cenaDemontazSchodow, kosztDemontazSchodow, cenaDemontazPodestow, kosztDemontazPodestow,
             cenaPraceDodatkowe, nrUmowy, dataRozpUm, dataZakUm, czyAneks, numerUmowyAneksu, login, idKlient, IdUmowy,terminPlatnosci,fakturowanie,uwagi,miejsceWynajmu,MiejsceZwrotuKontenera,osobaDecyzyjna,idKlient);
+            //generuje pdfa w klasie GeneratorPDF
 
              objgeneratorPDF.generatorPDF(nrUmowy,dataRozpUm,dataZakUm, idKlient,idUmowy,knazwa,kadres, kkontakt, knip, razem ,  xsciezka, r_kontenerID ,  r_dodatekID, dataPodpisaniaUmowy, osobaDecyzyjna, cenaTranDoc, miejsceWynajmu, cenaTranPowr , cenaMycia, cenaTransDocSchPod, cenaTransPowSchPod, cenaMontaz , cenaDemontaz, rozpiecie, cenaMontazSchodow , cenaDemontazSchodow , cenaMontazPodest , cenaDemontazPodestow , cenaPraceDodatkowe, poziomowanie , miejsceZwrotuKontenera, theDate, kaucja ,
                  fakturowanie, terminPlatnosci, listaKontener2, listaDodatki );
+            
+            //pobieram liste kontenerow z klasy MenadzerDB
 
-            menadzerKlientDB.pobierzListeKontenerow(listaKontener: listaKontener2, idUmowy: idUmowy, idKlient: idKlient);
+            menadzerDB.pobierzListeKontenerow(listaKontener: listaKontener2, idUmowy: idUmowy, idKlient: idKlient);
 
         }
+        //pobieram kontener po ID kontenera z klasy MenadzerDB
         private void DodajDoZestawieniaBTN_Click(object sender, RoutedEventArgs e)
         {
             DataRowView row = (DataRowView)dgKontener.SelectedItems[0];
             string idWybrKont = row[0].ToString();
 
-            try
-            {
-                MySqlConnection conn2 = PolaczenieDB.polaczenieZBazaDanych();
-                string stm2 = "SELECT VERSION()";
-                MySqlCommand cmdlog = new MySqlCommand(stm2, conn2);
-                cmdlog.Connection = conn2;
-                cmdlog.CommandText = "select * from kontener where id=@id;";
-                cmdlog.Prepare();
 
-                cmdlog.Parameters.AddWithValue("@id", Convert.ToInt32(idWybrKont));
+            var menadzerDB = new MenadzerDB();
+            menadzerDB.dodajDoZestawieniaDB(listaKontener, tempId, tempNumerCaro, tempNumerWeldon, tempAmortyzacjaKontenera, tempCenaNetto, tempCzyKlimatyzowany, tempCzyWynajety, tempPodstawoweWyposazenieKontenera, tempDodatkoweWyposazenieKontenera, tempLokalizacja , tempCenaMinimalna, tempDataZakupuKontenera, tempDataKoncaAmortyzacji, tempNotatka, tempTypKontenera, idWybrKont);
 
-                MySqlDataReader dataReader = cmdlog.ExecuteReader();
-                if (dataReader.Read())
-                {
-                    temp_id = Convert.ToInt32(dataReader["id"].ToString());
-                    temp_numercaro = dataReader["nrCaro"].ToString();
-                    temp_numerweldon = dataReader["nrWeldon"].ToString();
-                    temp_amortyzacjakontenera = dataReader["amortyzacja"].ToString();
-                    temp_cenanetto = dataReader["cenaNetto"].ToString();
-                    temp_typkontenera = dataReader["typKontenera"].ToString();
-                    temp_czyklimatyzowany = dataReader["czyKlimatyzowany"].ToString();
-                    temp_czywynajety = dataReader["czyWynajety"].ToString();
-                    temp_podstawowewyposazeniekontenera = dataReader["podstWyposazenie"].ToString();
-                    temp_dodatkowewyposazeniekontenera = dataReader["dodatWyposazenie"].ToString();
-                    temp_lokalizacja = dataReader["lokalizacja"].ToString();
-                    temp_cenaminimalna = dataReader["cenaMinimalna"].ToString();
-                    temp_datazakupukontenera = dataReader["dataZakupu"].ToString();
-                    temp_datakoncaamortyzacji = dataReader["dataKoncaAmo"].ToString();
-                    temp_notatka = dataReader["notatka"].ToString();
+            //    try
+            //    {
+            //        MySqlConnection conn2 = PolaczenieDB.polaczenieZBazaDanych();
+            //        string stm2 = "SELECT VERSION()";
+            //        MySqlCommand cmdlog = new MySqlCommand(stm2, conn2);
+            //        cmdlog.Connection = conn2;
+            //        cmdlog.CommandText = "select * from kontener where id=@id;";
+            //        cmdlog.Prepare();
+
+            //        cmdlog.Parameters.AddWithValue("@id", Convert.ToInt32(idWybrKont));
+
+            //        MySqlDataReader dataReader = cmdlog.ExecuteReader();
+            //        if (dataReader.Read())
+            //        {
+            //            temp_id = Convert.ToInt32(dataReader["id"].ToString());
+            //            temp_numercaro = dataReader["nrCaro"].ToString();
+            //            temp_numerweldon = dataReader["nrWeldon"].ToString();
+            //            temp_amortyzacjakontenera = dataReader["amortyzacja"].ToString();
+            //            temp_cenanetto = dataReader["cenaNetto"].ToString();
+            //            temp_typkontenera = dataReader["typKontenera"].ToString();
+            //            temp_czyklimatyzowany = dataReader["czyKlimatyzowany"].ToString();
+            //            temp_czywynajety = dataReader["czyWynajety"].ToString();
+            //            temp_podstawowewyposazeniekontenera = dataReader["podstWyposazenie"].ToString();
+            //            temp_dodatkowewyposazeniekontenera = dataReader["dodatWyposazenie"].ToString();
+            //            temp_lokalizacja = dataReader["lokalizacja"].ToString();
+            //            temp_cenaminimalna = dataReader["cenaMinimalna"].ToString();
+            //            temp_datazakupukontenera = dataReader["dataZakupu"].ToString();
+            //            temp_datakoncaamortyzacji = dataReader["dataKoncaAmo"].ToString();
+            //            temp_notatka = dataReader["notatka"].ToString();
 
 
-                    listaKontener.Add(new Kontener(temp_id, temp_numercaro, temp_numerweldon, temp_amortyzacjakontenera, temp_cenanetto, temp_typkontenera, temp_czyklimatyzowany, temp_czywynajety, temp_podstawowewyposazeniekontenera, temp_dodatkowewyposazeniekontenera, temp_lokalizacja, temp_cenaminimalna, temp_datazakupukontenera, temp_datakoncaamortyzacji, temp_notatka));
-                }
-                odswiezPokaz();
-            }
-            catch (MySqlException se)
-            {
-                System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-            }
+            //            listaKontener.Add(new Kontener(temp_id, temp_numercaro, temp_numerweldon, temp_amortyzacjakontenera, temp_cenanetto, temp_typkontenera, temp_czyklimatyzowany, temp_czywynajety, temp_podstawowewyposazeniekontenera, temp_dodatkowewyposazeniekontenera, temp_lokalizacja, temp_cenaminimalna, temp_datazakupukontenera, temp_datakoncaamortyzacji, temp_notatka));
+            //        }
+            //        odswiezPokaz();
+            //    }
+            //    catch (MySqlException se)
+            //    {
+            //        System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+            //    }
 
-        }
-           
+            //}
+        }   
         
         private void BlistaUsun_Click(object sender, RoutedEventArgs e)
         {
@@ -827,151 +963,168 @@ namespace CaroSYSTEM2809
             return temp;
         }
 
+
+        //pobieram klienta z klasy MenadzerDB,  kod z zapytaniem zostal przeniesiony do klasy MenadzerDB
         private void SzukajNowaUmowaKlientBTN_Click(object sender, RoutedEventArgs e)
         {
-           
-            try
-            {
 
-                MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
-                string stm = "SELECT VERSION()";
-                MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                cmdlog.Connection = conn;
-                cmdlog.CommandText = " select * from klient where concat(nazwa,' ',adres) like @frazaszukana";
-                cmdlog.Prepare();
-                //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
-                string temp1 = "%" + poleKlientSzukaj.Text + "%";
-                cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
-                Console.WriteLine(cmdlog.CommandText.ToString());
-                cmdlog.ExecuteNonQuery();
-                MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                //DataTable dt = new DataTable();
-                DataTable dt = new DataTable();
+            
+            var menadzerDB = new MenadzerDB();
+            menadzerDB.SzukajNowaUmowaKlienta(dgKlient, klientSzukaj );
 
-                da.Fill(dt);
-                dgKlient.DataContext = dt;
-            }
-            catch (MySqlException se)
-            {
-                System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-            }
+            //try
+            //{
+
+            //    MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+            //    string stm = "SELECT VERSION()";
+            //    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+            //    cmdlog.Connection = conn;
+            //    cmdlog.CommandText = " select * from klient where concat(nazwa,' ',adres) like @frazaszukana";
+            //    cmdlog.Prepare();
+            //    //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
+            //   string temp1 = "%" + poleKlientSzukaj.Text + "%";
+            //    cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
+            //    Console.WriteLine(cmdlog.CommandText.ToString());
+            //    cmdlog.ExecuteNonQuery();
+            //    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
+            //    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
+            //    //DataTable dt = new DataTable();
+            //    DataTable dt = new DataTable();
+
+            //    da.Fill(dt);
+            //    dgKlient.DataContext = dt;
+            //}
+            //catch (MySqlException se)
+            //{
+            //    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+            //}
         }
 
+        //pobieram kontener z klasy MenadzerDB , kod z zapytaniem zostal przeniesiony do klasy MenadzerDB
         private void SzukajNowaUmowaKontenerBTN_Click(object sender, RoutedEventArgs e)
         {
-           // string sciezka = "baza.config";
-           // string konfiguracja = File.ReadAllText(sciezka);
-            try
-            {
+            var menadzerDB = new MenadzerDB();
+            menadzerDB.SzukajNowaUmowaKontener(dgKontener, kontenerSzukaj );
+            //try
+            //{
 
-                MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
-                string stm = "SELECT VERSION()";
-                MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                cmdlog.Connection = conn;
-                cmdlog.CommandText = "select * from kontener where concat(nrCaro,' ',nrWeldon) like @frazaszukana";
-                cmdlog.Prepare();
-                //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
-                string temp1 = "%" + poleKontenerSzukaj.Text + "%";
-                cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
-                Console.WriteLine(cmdlog.CommandText.ToString());
-                cmdlog.ExecuteNonQuery();
-                MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                //DataTable dt = new DataTable();
-                DataTable dt = new DataTable();
+            //    MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+            //    string stm = "SELECT VERSION()";
+            //    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+            //    cmdlog.Connection = conn;
+            //    cmdlog.CommandText = "select * from kontener where concat(nrCaro,' ',nrWeldon) like @frazaszukana";
+            //    cmdlog.Prepare();
+            //    //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
+            //    string temp1 = "%" + poleKontenerSzukaj.Text + "%";
+            //    cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
+            //    Console.WriteLine(cmdlog.CommandText.ToString());
+            //    cmdlog.ExecuteNonQuery();
+            //    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
+            //    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
+            //    //DataTable dt = new DataTable();
+            //    DataTable dt = new DataTable();
 
-                da.Fill(dt);
-                dgKontener.DataContext = dt;
-            }
-            catch (MySqlException se)
-            {
-                System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-            }
+            //    da.Fill(dt);
+            //    dgKontener.DataContext = dt;
+            //}
+            //catch (MySqlException se)
+            //{
+            //    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+            //}
         }
 
         private void ResetSzukajNowaUmowaKontenerBTN_Click(object sender, RoutedEventArgs e)
         {
-            var menadzerKlientDB = new MenadzerKlientDB(dgKlient);
+            var menadzerKlientDB = new MenadzerDB(dgKlient);
            
             poleKontenerSzukaj.Text = "";
         }
 
         private void ResetSzukajNowaUmowaKlientBTN_Click(object sender, RoutedEventArgs e)
         {
-            MenadzerKlientDB menadzer = new MenadzerKlientDB(dgKlient);
+            MenadzerDB menadzer = new MenadzerDB(dgKlient);
 
 
             poleKlientSzukaj.Text = "";
         }
 
+        //pobieram klienta z klasy MenadzerDB,  kod z zapytaniem zostal przeniesiony do klasy MenadzerDB
         private void PoleKlientSzukaj_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
+
+
+                var menadzerDB = new MenadzerDB();
+                menadzerDB.SzukajKlient(dgKlient, klientSzukaj);
               //  string sciezka = "baza.config";
               //  string konfiguracja = File.ReadAllText(sciezka);
-                try
-                {
+                //try
+                //{
 
-                    MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
-                    string stm = "SELECT VERSION()";
-                    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                    cmdlog.Connection = conn;
-                    cmdlog.CommandText = " select * from klient where concat(nazwa,' ',adres) like @frazaszukana";
-                    cmdlog.Prepare();
-                    //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
-                    string temp1 = "%" + poleKlientSzukaj.Text + "%";
-                    cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
-                    Console.WriteLine(cmdlog.CommandText.ToString());
-                    cmdlog.ExecuteNonQuery();
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                    //DataTable dt = new DataTable();
-                    DataTable dt = new DataTable();
+                //    MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+                //    string stm = "SELECT VERSION()";
+                //    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+                //    cmdlog.Connection = conn;
+                //    cmdlog.CommandText = " select * from klient where concat(nazwa,' ',adres) like @frazaszukana";
+                //    cmdlog.Prepare();
+                //    //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
+                //    string temp1 = "%" + poleKlientSzukaj.Text + "%";
+                //    cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
+                //    Console.WriteLine(cmdlog.CommandText.ToString());
+                //    cmdlog.ExecuteNonQuery();
+                //    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
+                //    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
+                //    //DataTable dt = new DataTable();
+                //    DataTable dt = new DataTable();
 
-                    da.Fill(dt);
-                    dgKlient.DataContext = dt;
-                }
-                catch (MySqlException se)
-                {
-                    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-                }
+                //    da.Fill(dt);
+                //    dgKlient.DataContext = dt;
+                //}
+                //catch (MySqlException se)
+                //{
+                //    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+                //}
             }
         }
 
+        //pobieram kontener z klasy MenadzerDB,  kod z zapytaniem zostal przeniesiony do klasy MenadzerDB
         private void PoleKontenerSzukaj_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-             //   string sciezka = "baza.config";
-             //   string konfiguracja = File.ReadAllText(sciezka);
-                try
-                {
+                var menadzerDB = new MenadzerDB();
+                menadzerDB.SzukajKontener(dgKontener,kontenerSzukaj);
 
-                    MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
-                    string stm = "SELECT VERSION()";
-                    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                    cmdlog.Connection = conn;
-                    cmdlog.CommandText = "select * from kontener where concat(nrCaro,' ',nrWeldon) like @frazaszukana";
-                    cmdlog.Prepare();
-                    //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
-                    string temp1 = "%" + poleKontenerSzukaj.Text + "%";
-                    cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
-                    Console.WriteLine(cmdlog.CommandText.ToString());
-                    cmdlog.ExecuteNonQuery();
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                    //DataTable dt = new DataTable();
-                    DataTable dt = new DataTable();
+                //   string sciezka = "baza.config";
+                //   string konfiguracja = File.ReadAllText(sciezka);
+                //    try
+                //    {
 
-                    da.Fill(dt);
-                    dgKontener.DataContext = dt;
-                }
-                catch (MySqlException se)
-                {
-                    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-                }
+                //        MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+                //        string stm = "SELECT VERSION()";
+                //        MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+                //        cmdlog.Connection = conn;
+                //        cmdlog.CommandText = "select * from kontener where concat(nrCaro,' ',nrWeldon) like @frazaszukana";
+                //        cmdlog.Prepare();
+                //        //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
+                //        string temp1 = "%" + poleKontenerSzukaj.Text + "%";
+                //        cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
+                //        Console.WriteLine(cmdlog.CommandText.ToString());
+                //        cmdlog.ExecuteNonQuery();
+                //        MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
+                //        MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
+                //        //DataTable dt = new DataTable();
+                //        DataTable dt = new DataTable();
+
+                //        da.Fill(dt);
+                //        dgKontener.DataContext = dt;
+                //    }
+                //    catch (MySqlException se)
+                //    {
+                //        System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+                //    }
+                //}
             }
         }
 
@@ -980,7 +1133,7 @@ namespace CaroSYSTEM2809
             uHome.Visibility = Visibility.Visible;
             uKontenery.Visibility = Visibility.Collapsed;
             uUmowa.Visibility = Visibility.Collapsed;
-            MenadzerKlientDB menadzer = new MenadzerKlientDB(dgKlient);
+            MenadzerDB menadzer = new MenadzerDB(dgKlient);
         }
 
         private void BPowrotDoKOntenerow_Click(object sender, RoutedEventArgs e)

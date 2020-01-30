@@ -145,7 +145,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MenadzerKlientDB.cs" />
+    <Compile Include="MenadzerDB.cs" />
     <Compile Include="oknoEksplorator.xaml.cs">
       <DependentUpon>oknoEksplorator.xaml</DependentUpon>
     </Compile>
