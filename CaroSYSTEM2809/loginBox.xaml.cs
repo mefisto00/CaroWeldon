@@ -21,7 +21,7 @@ namespace CaroSYSTEM2809
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             
-                walidacja(logowanie_login.Text, logowanie_password.Password.ToString());
+                walidacja(logowanie_login.Text,logowanie_password.Password.ToString());
 
          
         }
@@ -45,100 +45,50 @@ namespace CaroSYSTEM2809
             return encoded;
         }
 
-       
 
-        public void walidacja(string logi, string hasl)
+
+        public void walidacja(string login, string haslo)
         {
-            
-            string haslmd5 = kodowanieDoMD5(hasl);
-            bool czyPrawidlowe = false;
 
-            try
+              string haslmd5 = kodowanieDoMD5(haslo);
+          try
             {
-                
-                MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
-               
 
-                string stm = "SELECT VERSION()";
-                MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                cmdlog.Connection = conn;
-                cmdlog.CommandText = "SELECT * FROM logowanie WHERE login=@login";
-                cmdlog.Prepare();
-                cmdlog.Parameters.AddWithValue("@login", logowanie_login.Text);
-                cmdlog.ExecuteNonQuery();
-                Console.WriteLine("larum parum");
+                MenadzerDB menadzerDB = new MenadzerDB();
+                MySqlCommand cmdlog = menadzerDB.pobierzDaneZLogowania(login);
                 MySqlDataReader rdr = cmdlog.ExecuteReader();
-
-
-                //   Console.WriteLine("{0} {1} {2}", rdr.GetName(0), rdr.GetName(1).PadLeft(18), rdr.GetName(2).PadLeft(18));
                 while (rdr.Read())
-                {
-                    //  Console.WriteLine(rdr.GetString(0).PadRight(18) + rdr.GetString(1).PadRight(18)+rdr.GetString(2));
+                {                    
                     if (rdr.GetString(2) == haslmd5)
                     {
-                        czyPrawidlowe = true;
+                        MainWindow mw = new MainWindow(login);
+                        this.Close();
+                        mw.Show();
+                        System.Uri uri = new System.Uri("pack://application:,,,,/CaroSYSTEM2809;component/MainWindow.xaml");
+                        Application.Current.MainWindow = mw;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Twoje dane logowania są nieprawidłowe!", "Błąd logowania!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        this.Close();
 
                     }
-                    else czyPrawidlowe = false;
                 }
-
-                if (czyPrawidlowe == true)
-                {
-                    Console.WriteLine("OK");
-
-                    //3-6
-                    MainWindow mw = new MainWindow(logowanie_login.Text);
-
-                    //  MainWindow mw = new MainWindow(logx, przelozonyx);
-                    this.Close();
-                    mw.Show();
-                    System.Uri uri = new System.Uri("pack://application:,,,,/CaroSYSTEM2809;component/MainWindow.xaml");
-                    Application.Current.MainWindow = mw;
-
-                }
-                else
-                {
-                    Console.WriteLine("CHUJ");
-                    MessageBox.Show("Twoje dane logowania są nieprawidłowe!","Błąd logowania!",MessageBoxButton.OK,MessageBoxImage.Error);
-                }
-                /*  Console.WriteLine("XD");
-                          MessageBox.Show("Walidacja poprawna, witaj: " + reader.GetString("log_imie") + " " + reader.GetString("log_nazwisko"));
-                          MainWindow mw = new MainWindow(Convert.ToInt32(reader.GetString("log_id")), reader.GetString("log_login"), reader.GetString("log_imie"), reader.GetString("log_nazwisko"), reader.GetString("log_mail"), reader.GetString("log_telefon"));
-
-
-
-                          this.Hide();
-                          mw.Show();
-                          // Console.WriteLine("{0}", Application.Current.StartupUri.ToString());
-                          //Application.Current.StartupUri = (Uri)"MainWindow.xaml";
-                          System.Uri uri = new System.Uri("pack://application:,,,,/Caro2_2904x;component/MainWindow.xaml");
-                          Application.Current.MainWindow = mw;
-
-
-                      */
-            }
-            catch (MySqlException se)
+          }catch (MySqlException se)
             {
                 MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
             }
-
-
-
-
-
+               
         }
-
-        private void Logowanie_password_KeyDown(object sender, KeyEventArgs e)
-        {
-
-            if (e.Key == Key.Enter)
+            private void Logowanie_password_KeyDown(object sender, KeyEventArgs e)
             {
-
+                if (e.Key == Key.Enter)
+                {
                 this.walidacja(logowanie_login.Text, logowanie_password.Password.ToString());
-            }
+                }
 
 
-        }
+             }
 
 
 

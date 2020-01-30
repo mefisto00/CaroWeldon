@@ -16,7 +16,7 @@ namespace CaroSYSTEM2809
 
 
 
-      //  private DataGrid dgKlient;
+        //  private DataGrid dgKlient;
         private int idKlient;
 
         /*   public System.Windows.Controls.DataGrid DgKlient
@@ -81,11 +81,11 @@ namespace CaroSYSTEM2809
 
 
         }
-       
+
         //pobieram liste kontenerow 
         public List<Kontener> pobierzListeKontenerow(List<Kontener> listaKontener, int idUmowy, int idKlient)
         {
-            
+
             foreach (var item in listaKontener)
             {
 
@@ -117,9 +117,9 @@ namespace CaroSYSTEM2809
         }
 
 
-        public void dodajDoZestawieniaDB(List<Kontener>listaKontener,int tempId,string tempNumerCaro,string tempNumerWeldon,string tempAmortyzacjaKontenera, string tempCenaNetto, string tempCzyKlimatyzowany, string tempCzyWynajety, string tempPodstawoweWyposazenieKontenera, string tempDodatkoweWyposazenieKontenera, string tempLokalizacja , string tempCenaMinimalna, string tempDataZakupuKontenera, string tempDataKoncaAmortyzacji, string tempNotatka, string tempTypKontenera, string idWybrKont)
+        public void dodajDoZestawieniaDB(List<Kontener> listaKontener, int tempId, string tempNumerCaro, string tempNumerWeldon, string tempAmortyzacjaKontenera, string tempCenaNetto, string tempCzyKlimatyzowany, string tempCzyWynajety, string tempPodstawoweWyposazenieKontenera, string tempDodatkoweWyposazenieKontenera, string tempLokalizacja, string tempCenaMinimalna, string tempDataZakupuKontenera, string tempDataKoncaAmortyzacji, string tempNotatka, string tempTypKontenera, string idWybrKont)
         {
-            
+
             try
             {
                 MySqlConnection conn = polaczenieZBazaDanych();
@@ -164,14 +164,14 @@ namespace CaroSYSTEM2809
             }
 
 
-        
+
 
 
         }
 
 
         //pobieram klienta z db
-        public void SzukajNowaUmowaKlienta(DataGrid dgKlient, string klientSzukaj )
+        public void SzukajNowaUmowaKlienta(DataGrid dgKlient, string klientSzukaj)
         {
 
             try
@@ -183,7 +183,7 @@ namespace CaroSYSTEM2809
                 cmdlog.Connection = conn;
                 cmdlog.CommandText = " select * from klient where concat(nazwa,' ',adres) like @frazaszukana";
                 cmdlog.Prepare();
-                
+
                 string temp1 = "%" + klientSzukaj + "%";
                 cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
                 Console.WriteLine(cmdlog.CommandText.ToString());
@@ -202,7 +202,7 @@ namespace CaroSYSTEM2809
         }
 
         //pobieram kontener z db 
-        public void SzukajNowaUmowaKontener(DataGrid dgKontener , string kontenerSzukaj)
+        public void SzukajNowaUmowaKontener(DataGrid dgKontener, string kontenerSzukaj)
         {
 
             try
@@ -270,40 +270,51 @@ namespace CaroSYSTEM2809
         //pobieram kontener z db 
         public void SzukajKontener(DataGrid dgKontener, string kontenerSzukaj)
         {
-              try
-                {
+            try
+            {
 
-                    MySqlConnection conn = polaczenieZBazaDanych();
-                    string stm = "SELECT VERSION()";
-                    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                    cmdlog.Connection = conn;
-                    cmdlog.CommandText = "select * from kontener where concat(nrCaro,' ',nrWeldon) like @frazaszukana";
-                    cmdlog.Prepare();
-                    //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
-                    string temp1 = "%" + kontenerSzukaj + "%";
-                    cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
-                    Console.WriteLine(cmdlog.CommandText.ToString());
-                    cmdlog.ExecuteNonQuery();
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                    //DataTable dt = new DataTable();
-                    DataTable dt = new DataTable();
+                MySqlConnection conn = polaczenieZBazaDanych();
+                string stm = "SELECT VERSION()";
+                MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+                cmdlog.Connection = conn;
+                cmdlog.CommandText = "select * from kontener where concat(nrCaro,' ',nrWeldon) like @frazaszukana";
+                cmdlog.Prepare();
+                //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
+                string temp1 = "%" + kontenerSzukaj + "%";
+                cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
+                Console.WriteLine(cmdlog.CommandText.ToString());
+                cmdlog.ExecuteNonQuery();
+                MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
+                MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
+                //DataTable dt = new DataTable();
+                DataTable dt = new DataTable();
 
-                    da.Fill(dt);
-                    dgKontener.DataContext = dt;
-                    conn.Close();
+                da.Fill(dt);
+                dgKontener.DataContext = dt;
+                conn.Close();
             }
-                catch (MySqlException se)
-                {
-                    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-                }
-            
-        }
+            catch (MySqlException se)
+            {
+                System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+            }
+
         }
 
-
+        public MySqlCommand pobierzDaneZLogowania(string login )
+        {
+            MySqlConnection conn = polaczenieZBazaDanych();
+            string stm = "SELECT VERSION()";
+            MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+            cmdlog.Connection = conn;
+            cmdlog.CommandText = "SELECT * FROM logowanie WHERE login=@login";
+            cmdlog.Prepare();
+            cmdlog.Parameters.AddWithValue("@login", login);
+            cmdlog.ExecuteNonQuery();
+            return cmdlog;
+        }
 
     }
+}
 
 
 
