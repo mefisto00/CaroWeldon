@@ -88,6 +88,7 @@
     </ApplicationDefinition>
     <Compile Include="GeneratorPDF.cs" />
     <Compile Include="Kontener.cs" />
+    <Compile Include="MenadzerEksploratorDB.cs" />
     <Compile Include="MenadzerRaportyDB.cs" />
     <Compile Include="Wyposazenie.cs" />
     <Page Include="eOknoKlient.xaml">

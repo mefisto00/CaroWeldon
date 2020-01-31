@@ -26,7 +26,31 @@ namespace CaroSYSTEM2809
     /// Logika interakcji dla klasy oknoEksplorator.xaml
     /// </summary>
     public partial class oknoEksplorator : Window
+
+
     {
+
+        private string szukajKlienta;
+        private string szukajKontener;
+
+        
+
+        public string SzukajKlienta
+        {
+            get { return szukajKlienta; }
+            private set { szukajKlienta = ex_poleSzukajKlient.Text; }  
+
+        }
+        public string SzukajKontener
+        {
+            get { return szukajKontener; }
+            private set { szukajKontener = ex_poleSzukajKontener.Text; }
+
+        }
+
+
+        MenadzerEksploratorDB menadzerEksploratorDB = new MenadzerEksploratorDB();
+
         public oknoEksplorator()
         {
 
@@ -42,6 +66,7 @@ namespace CaroSYSTEM2809
             edytujWpisKlient.Visibility = Visibility.Collapsed;
             edytujWpisKontener.Visibility = Visibility.Collapsed;
             edytujWpisUmowa.Visibility = Visibility.Collapsed;
+            
         }
  
 
@@ -77,8 +102,8 @@ namespace CaroSYSTEM2809
                 edytujWpisKontener.Visibility = Visibility.Collapsed;
                 edytujWpisKlient.Visibility = Visibility.Visible;
                 edytujWpisUmowa.Visibility = Visibility.Collapsed;
-                //aFillGrid("klienci", grid_klient);
-                wypelnijTabeleKlient();
+            //aFillGrid("klienci", grid_klient);
+                menadzerEksploratorDB.WypelnijTabeleKlient(grid_klient);
 
             }
 
@@ -96,7 +121,7 @@ namespace CaroSYSTEM2809
                 edytujWpisKontener.Visibility = Visibility.Visible;
                 edytujWpisUmowa.Visibility = Visibility.Collapsed;
                 // aFillGrid("kontenery", grid_kont);
-                wypelnijTabeleKontener();
+                menadzerEksploratorDB.WypelnijTabeleKontener(grid_kont);
             }
 
             private void Button_Click(object sender, RoutedEventArgs e)
@@ -109,126 +134,127 @@ namespace CaroSYSTEM2809
 
             }
 
-            //public void aFillGrid(string tabelaBD, DataGrid nazwaDataGrida)
+        //public void aFillGrid(string tabelaBD, DataGrid nazwaDataGrida)
+        //{
+        //    ///
+        //    string sql = "SELECT * FROM " + tabelaBD;
+
+
+        //    DataTable dt = new DataTable();
+        //    MySqlDataAdapter da = new MySqlDataAdapter(cmdSel);
+        //    da.Fill(dt);
+        //    nazwaDataGrida.DataContext = dt;
+
+        //    MySqlConnection conn = null;
+        //    conn = new MySqlConnection(konfiguracja);
+        //    conn.Open();
+        //    string stm = "SELECT VERSION()";
+        //    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+        //    cmdlog.Connection = conn;
+        //    cmdlog.CommandText = "select * from kontenery where kont_id=@id;";
+        //    cmdlog.Prepare();
+
+        //}
+
+        /*
+                    public void wypelnijTabeleKlient()
+                    {
+                      try 
+                        {
+
+                            MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+                            string stm = "SELECT VERSION()";
+                            MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+                            cmdlog.Connection = conn;
+                            cmdlog.CommandText = "select * from klient;";
+                            cmdlog.Prepare();
+
+                            cmdlog.ExecuteNonQuery();
+                            MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
+                            MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
+                            //DataTable dt = new DataTable();
+                            DataTable dt = new DataTable();
+
+                            da.Fill(dt);
+                            grid_klient.DataContext = dt;
+
+                        }
+                        catch (MySqlException se)
+                        {
+                            System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+                        }
+
+
+
+                    }
+
+
+            */
+        //public void wypelnijTabeleUmowy()
+        //{
+
+        //    try
+        //    {
+
+        //        MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+        //        string stm = "SELECT VERSION()";
+        //        MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+        //        cmdlog.Connection = conn;
+        //        // cmdlog.CommandText = "select * from umowy, kontenery, klienci, faktury where kontenery.fk_um_id=umowy.um_id and umowy.um_id=klienci.klient_id and umowy.fk_fa_id=faktury.fa_id";
+        //        //cmdlog.CommandText = "select um_id, um_nrUmowy, um_dataRozpoczeciaUmowy, um_dataZakonczeniaUmowy, um_czyToAneks, um_aneksDoUmowy, klient_nazwa from umowy, klienci where umowy.fk_klient_id=klienci.klient_id;";
+        //        cmdlog.CommandText = "select * from umowa, klient where umowa.idklienta=klient.id";
+
+        //        cmdlog.Prepare();
+
+        //        cmdlog.ExecuteNonQuery();
+        //        MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
+        //        MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
+        //        //DataTable dt = new DataTable();
+        //        DataTable dt = new DataTable();
+
+        //        da.Fill(dt);
+        //        grid_umowy.DataContext = dt;
+
+        //    }
+        //    catch (MySqlException se)
+        //    {
+        //        System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+        //    }
+
+
+
+        //}
+
+        
+            //public void wypelnijTabeleKontener()
             //{
-            //    ///
-            //    string sql = "SELECT * FROM " + tabelaBD;
 
+            //    try
+            //      {  
+            //        MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
+            //        string stm = "SELECT VERSION()";
+            //        MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+            //        cmdlog.Connection = conn;
+            //        cmdlog.CommandText = "select * from kontener;";
+            //        cmdlog.Prepare();
 
-            //    DataTable dt = new DataTable();
-            //    MySqlDataAdapter da = new MySqlDataAdapter(cmdSel);
-            //    da.Fill(dt);
-            //    nazwaDataGrida.DataContext = dt;
+            //        cmdlog.ExecuteNonQuery();
+            //        MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
+            //        MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
+            //        //DataTable dt = new DataTable();
+            //        DataTable dt = new DataTable();
 
-            //    MySqlConnection conn = null;
-            //    conn = new MySqlConnection(konfiguracja);
-            //    conn.Open();
-            //    string stm = "SELECT VERSION()";
-            //    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-            //    cmdlog.Connection = conn;
-            //    cmdlog.CommandText = "select * from kontenery where kont_id=@id;";
-            //    cmdlog.Prepare();
+            //        da.Fill(dt);
+            //        grid_kont.DataContext = dt;
+
+            //    }
+            //    catch (MySqlException se)
+            //    {
+            //        System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+            //    }
+
 
             //}
-
-
-            public void wypelnijTabeleKlient()
-            {
-              try 
-                {
-
-                    MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
-                    string stm = "SELECT VERSION()";
-                    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                    cmdlog.Connection = conn;
-                    cmdlog.CommandText = "select * from klient;";
-                    cmdlog.Prepare();
-
-                    cmdlog.ExecuteNonQuery();
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                    //DataTable dt = new DataTable();
-                    DataTable dt = new DataTable();
-
-                    da.Fill(dt);
-                    grid_klient.DataContext = dt;
-
-                }
-                catch (MySqlException se)
-                {
-                    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-                }
-
-
-
-            }
-
-
-            public void wypelnijTabeleUmowy()
-            {
-                
-                try
-                {
-
-                    MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
-                    string stm = "SELECT VERSION()";
-                    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                    cmdlog.Connection = conn;
-                    // cmdlog.CommandText = "select * from umowy, kontenery, klienci, faktury where kontenery.fk_um_id=umowy.um_id and umowy.um_id=klienci.klient_id and umowy.fk_fa_id=faktury.fa_id";
-                    //cmdlog.CommandText = "select um_id, um_nrUmowy, um_dataRozpoczeciaUmowy, um_dataZakonczeniaUmowy, um_czyToAneks, um_aneksDoUmowy, klient_nazwa from umowy, klienci where umowy.fk_klient_id=klienci.klient_id;";
-                    cmdlog.CommandText = "select * from umowa, klient where umowa.idklienta=klient.id";
-
-                    cmdlog.Prepare();
-            
-                    cmdlog.ExecuteNonQuery();
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                    //DataTable dt = new DataTable();
-                    DataTable dt = new DataTable();
-
-                    da.Fill(dt);
-                    grid_umowy.DataContext = dt;
-
-                }
-                catch (MySqlException se)
-                {
-                    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-                }
-
-
-
-            }
-
-
-            public void wypelnijTabeleKontener()
-            {
-                
-                try
-                  {  
-                    MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
-                    string stm = "SELECT VERSION()";
-                    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                    cmdlog.Connection = conn;
-                    cmdlog.CommandText = "select * from kontener;";
-                    cmdlog.Prepare();
-
-                    cmdlog.ExecuteNonQuery();
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                    //DataTable dt = new DataTable();
-                    DataTable dt = new DataTable();
-
-                    da.Fill(dt);
-                    grid_kont.DataContext = dt;
-
-                }
-                catch (MySqlException se)
-                {
-                    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-                }
-
-
-            }
 
 
 
@@ -319,17 +345,18 @@ namespace CaroSYSTEM2809
 
             private void Refresz_kontener_Click(object sender, RoutedEventArgs e)
             {
-                wypelnijTabeleKontener();
+               menadzerEksploratorDB.WypelnijTabeleKontener(grid_kont);
 
             }
 
             private void Refresz_klient_Click(object sender, RoutedEventArgs e)
             {
 
-                wypelnijTabeleKlient();
+            menadzerEksploratorDB.WypelnijTabeleKlient(grid_klient);
+
             }
 
-            private void PokazUmowyBaza_Click(object sender, RoutedEventArgs e)
+        private void PokazUmowyBaza_Click(object sender, RoutedEventArgs e)
             {
                 E_stronaglowna.Visibility = Visibility.Collapsed;
                 E_klienci.Visibility = Visibility.Collapsed;
@@ -343,12 +370,14 @@ namespace CaroSYSTEM2809
                 edytujWpisKontener.Visibility = Visibility.Collapsed;
                 edytujWpisUmowa.Visibility = Visibility.Visible;
                 // aFillGrid("kontenery", grid_kont);
-                wypelnijTabeleUmowy();
+                menadzerEksploratorDB.WypelnijTabeleUmowy(grid_umowy);
             }
 
         private void Ex_szukajUmowaBTN_Click(object sender, RoutedEventArgs e)
         {
-            string sciezka = "baza.config";
+            menadzerEksploratorDB.SzukajUmowy(grid_umowy, szukajKlienta);
+            
+            /*  string sciezka = "baza.config";
             string konfiguracja = File.ReadAllText(sciezka);
             try
             {
@@ -378,97 +407,101 @@ namespace CaroSYSTEM2809
             catch (MySqlException se)
             {
                 System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-            }
+            } */
         }
 
         private void Ex_szukajKontenerBTN_Click(object sender, RoutedEventArgs e)
         {
-            string sciezka = "baza.config";
-            string konfiguracja = File.ReadAllText(sciezka);
-            try
-            {
 
-                MySqlConnection conn = null;
-                conn = new MySqlConnection(konfiguracja);
-                conn.Open();
+            menadzerEksploratorDB.SzukajKontener(grid_kont, szukajKlienta);
+            //string sciezka = "baza.config";
+            //string konfiguracja = File.ReadAllText(sciezka);
+            //try
+            //{
 
-                string stm = "SELECT VERSION()";
-                MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                cmdlog.Connection = conn;
-                cmdlog.CommandText = "select * from kontener where concat(nrCaro,' ',nrWeldon) like @frazaszukana";
-                cmdlog.Prepare();
-                //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
-                string temp1 = "%" + ex_poleSzukajKontener.Text + "%";
-                cmdlog.Parameters.AddWithValue("@frazaszukana", temp1); 
-                Console.WriteLine(cmdlog.CommandText.ToString());
-                cmdlog.ExecuteNonQuery();
-                MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                //DataTable dt = new DataTable();
-                DataTable dt = new DataTable();
+            //    MySqlConnection conn = null;
+            //    conn = new MySqlConnection(konfiguracja);
+            //    conn.Open();
 
-                da.Fill(dt);
-                grid_kont.DataContext = dt;
-            }
-            catch (MySqlException se)
-            {
-                System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-            }
+            //    string stm = "SELECT VERSION()";
+            //    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+            //    cmdlog.Connection = conn;
+            //    cmdlog.CommandText = "select * from kontener where concat(nrCaro,' ',nrWeldon) like @frazaszukana";
+            //    cmdlog.Prepare();
+            //    //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
+            //    string temp1 = "%" + ex_poleSzukajKontener.Text + "%";
+            //    cmdlog.Parameters.AddWithValue("@frazaszukana", temp1); 
+            //    Console.WriteLine(cmdlog.CommandText.ToString());
+            //    cmdlog.ExecuteNonQuery();
+            //    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
+            //    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
+            //    //DataTable dt = new DataTable();
+            //    DataTable dt = new DataTable();
+
+            //    da.Fill(dt);
+            //    grid_kont.DataContext = dt;
+            //}
+            //catch (MySqlException se)
+            //{
+            //    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+            //}
         }
 
 
             private void Ex_szukajKlientBTN_Click(object sender, RoutedEventArgs e)
         {
-            string sciezka = "baza.config";
-            string konfiguracja = File.ReadAllText(sciezka);
-            try
-            {
+            menadzerEksploratorDB.SzukajKlienta(grid_klient, szukajKlienta);
+            //string sciezka = "baza.config";
+            //string konfiguracja = File.ReadAllText(sciezka);
+            //try
+            //{
 
-                MySqlConnection conn = null;
-                conn = new MySqlConnection(konfiguracja);
-                conn.Open();
+            //    MySqlConnection conn = null;
+            //    conn = new MySqlConnection(konfiguracja);
+            //    conn.Open();
 
-                string stm = "SELECT VERSION()";
-                MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                cmdlog.Connection = conn;
-                cmdlog.CommandText = " select * from klient where concat(nazwa,' ',adres) like @frazaszukana";
-                cmdlog.Prepare();
-                //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
-                string temp1 = "%" + ex_poleSzukajKlient.Text + "%";
-                cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
-                Console.WriteLine(cmdlog.CommandText.ToString());
-                cmdlog.ExecuteNonQuery();
-                MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                //DataTable dt = new DataTable();
-                DataTable dt = new DataTable();
+            //    string stm = "SELECT VERSION()";
+            //    MySqlCommand cmdlog = new MySqlCommand(stm, conn);
+            //    cmdlog.Connection = conn;
+            //    cmdlog.CommandText = " select * from klient where concat(nazwa,' ',adres) like @frazaszukana";
+            //    cmdlog.Prepare();
+            //    //cmdlog.Parameters.AddWithValue("@frazaszukana", ex_poleSzukajKontener.Text);
+            //    string temp1 = "%" + ex_poleSzukajKlient.Text + "%";
+            //    cmdlog.Parameters.AddWithValue("@frazaszukana", temp1);
+            //    Console.WriteLine(cmdlog.CommandText.ToString());
+            //    cmdlog.ExecuteNonQuery();
+            //    MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
+            //    MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
+            //    //DataTable dt = new DataTable();
+            //    DataTable dt = new DataTable();
 
-                da.Fill(dt);
-                grid_klient.DataContext = dt;
-            }
-            catch (MySqlException se)
-            {
-                System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-            }
+            //    da.Fill(dt);
+            //    grid_klient.DataContext = dt;
+            //}
+            //catch (MySqlException se)
+            //{
+            //    System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
+            //}
 
         }
 
         private void Ex_resetujSzukajKlientBTN_Click(object sender, RoutedEventArgs e)
         {
             ex_poleSzukajKlient.Text = "";
-            wypelnijTabeleKlient();
+            menadzerEksploratorDB.WypelnijTabeleKlient(grid_klient);
+
         }
 
         private void Ex_resetujSzukajKontenerBTN_Click(object sender, RoutedEventArgs e)
         {
             ex_poleSzukajKontener.Text = "";
-            wypelnijTabeleKontener();
+            menadzerEksploratorDB.WypelnijTabeleKontener(grid_kont);
         }
 
         private void Ex_resetujSzukajUmowaBTN_Click(object sender, RoutedEventArgs e)
         {
             ex_poleSzukajUmowa.Text = "";
-            wypelnijTabeleUmowy();
+            menadzerEksploratorDB.WypelnijTabeleUmowy(grid_umowy);
         }
 
         private void Ex_poleSzukajKlient_KeyDown(object sender, KeyEventArgs e)
