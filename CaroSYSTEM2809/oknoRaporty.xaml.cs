@@ -1,22 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using MySql.Data.MySqlClient;
-using Microsoft.Win32;
-using System.Data;
-using System.IO;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 
 
 namespace CaroSYSTEM2809
@@ -26,11 +9,232 @@ namespace CaroSYSTEM2809
     /// </summary>
     public partial class oknoRaporty : Window
     {
-        public string idUmowy;
+
+
+        private string idUmowy;
+        private string rSumaCenKonteneroW;
+        private string rIleKont;
+        private string rSumaTransport;
+        private string rSumaMeble;
+        private string rSumaMontazDemontaz;
+        private string rSumaMycie;
+        private string rSumaObciazenia;
+        private string rPrzychod;
+        private string rKNOgolnie;
+        private string rKNTrasportu;
+        private string rKNMontazDemontaz;
+        private string rKNMycia;
+        private string rKNNapraw;
+        private string rKoszt;
+        private string rRKont;
+        private string rRTran;
+        private string rRMebleSchody;
+        private string rRMonDem;
+        private string rRMyc;
+        private string rRDod;
+        private string rRZysk;
+        private string txUmowaNumerI;
+        private string rKNKredAmo;
+
+
+
+        
+
+
+
+        public string RKNKredAmo
+        {
+            get { return rKNKredAmo; }
+
+            private set { rKNKredAmo = poleRKNKredAmo.Text; }
+
+        }
+        public string  TxUmowaNumerI
+        {
+            get { return txUmowaNumerI; }
+
+            private set { txUmowaNumerI = txUmowaNumer.Text; }
+
+        }
+        public string RRZysk
+        {
+            get { return rRZysk; }
+
+            private set { rRZysk = poleRRZysk.Text; }
+
+        }
+        public string RRDod
+        {
+            get { return rRDod; }
+
+            private set
+            {
+                rRDod = poleRRDod.Text;
+            }
+
+        }
+        public string RRMyc
+        {
+            get { return rRMyc; }
+
+            private set { rRMyc = poleRRMyc.Text; }
+
+        }
+        public string RRMebleSchody
+        {
+            get { return rRMebleSchody; }
+
+            private set { rRMebleSchody = poleRRMebleSchody.Text; }
+
+        }
+        public string RRMonDem
+        {
+            get { return rRMonDem; }
+
+            private set { rRMonDem = poleRRMonDem.Text; }
+
+        }
+        public string RRTran
+        {
+            get { return rRTran; }
+
+            private set { rRTran = poleRRTran.Text; }
+
+        }
+        public string RRKont
+        {
+            get { return rRKont; }
+
+            private set { rRKont = poleRRKont.Text; }
+
+        }
+        public string RKoszt
+        {
+            get { return rKoszt; }
+
+            private set { rKoszt = poleRKoszt.Text; }
+
+        }
+        public string RKNMontazDemontaz
+        {
+            get { return rKNMontazDemontaz; }
+
+            private set { rKNMontazDemontaz = poleRKNMontazDemontaz.Text; }
+
+        }
+        public string RKNNapraw
+        {
+            get { return rKNNapraw; }
+
+            private set { rKNNapraw = poleRKNNapraw.Text; }
+
+        }
+
+
+        public string RKNMycia
+        {
+            get { return rKNMycia; }
+
+            private set { rKNMycia = poleRKNMycia.Text; }
+
+        }
+
+        public string RKNTrasportu
+        {
+            get { return rKNTrasportu; }
+
+            private set { rKNTrasportu = poleRKNTrasportu.Text; }
+
+        }
+        public string RKNOgolnie
+        {
+            get { return RKNOgolnie; }
+
+            private set { RKNOgolnie = poleRKNOgolnie.Text; }
+
+        }
+        public string RPrzychod
+        {
+            get { return rPrzychod; }
+
+            private set { rPrzychod = poleRPrzychod.Text; }
+
+        }
+
+        public string RSumaMycie
+        {
+            get { return rSumaMycie; }
+
+            private set { rSumaMycie = poleRSumaMycie.Text; }
+
+        }
+
+        public string RSumaMontazDemontaz
+         {
+            get { return rSumaMontazDemontaz; }
+
+            private set { rSumaMontazDemontaz = poleRSumaMontazDemontaz.Text; }
+
+         }
+
+        public string RSumaTransport
+        {
+            get { return rSumaTransport; }
+
+            private set { rSumaTransport = poleRSumaTransport.Text; }
+
+        }
+
+
+
+        public string RSumaObciazenia
+        {
+            get { return rSumaObciazenia; }
+
+            private set { rSumaObciazenia = poleRSumaObciazenia.Text; }
+
+        }
+
+
+
+        public string RIleKont
+        {
+            get { return rIleKont; }
+
+            private set { rIleKont = poleRIleKont.Text; }
+        }
+
+        public string RSumaMeble
+        {
+            get { return rSumaMeble; }
+
+            private set { rSumaMeble = poleRSumaMeble.Text; }
+        }
+
+        public string RSumaCenKonteneroW
+        {
+            get { return rSumaCenKonteneroW; }
+
+            private set { rSumaCenKonteneroW = poleRSumaCenKontenerow.Text; }
+        }
+
+
+
+        public string IdUmowy
+        {
+            get { return idUmowy; }
+
+            private set { idUmowy = value; }
+        }
+
+      private  MenadzerRaportyDB menadzerRaportyDB = new MenadzerRaportyDB(); 
+
+
         public oknoRaporty()
+            
         {
             InitializeComponent();
-            wypelnijTabeleUmowy();
+            menadzerRaportyDB.WypelnijTabeleUmowy(grid_umowy);
             uRaportWykaz.Visibility = Visibility.Visible;
             uRaportWybrany.Visibility = Visibility.Collapsed;
         }
@@ -41,200 +245,26 @@ namespace CaroSYSTEM2809
             uRaportWybrany.Visibility = Visibility.Visible;
 
 
+
             DataRowView row = (DataRowView)grid_umowy.SelectedItem as DataRowView;
 
             idUmowy = row[0].ToString();
-            string sciezka = "baza.config";
-            string konfiguracja = File.ReadAllText(sciezka);
 
-
-
-            double sumaTransport = 0;
-            double sumaMontazDemontaz = 0;
-            double sumaKosztTransport = 0;
-            double sumaKosztMonDemon = 0;
-            double przychodTransport;
-            double kosztTransport;
-            double roznicaTransport;
-
-            double przychodMeblePodest;
-            double kosztMeblePodest;
-            double roznicaMeblePodest;
-
-            double przychodMontazDemontaz;
-            double kosztMontazDemontaz;
-            double roznicaMontazDemontaz;
-
-            double przychodMycie;
-            double kosztMycie;
-            double roznicaMycie;
-
-            double przychodObciazenia;
-            double kosztNettoNaprawy;
-            double roznicaObciazeniaNetto;
-
-            double przychodUmowa;
-            double kosztUmowa;
-            double zyskUmowa;
-
-
-
-            try
-            {
-                
-
-                MySqlConnection conn = null;
-                conn = new MySqlConnection(konfiguracja);
-                conn.Open();
-
-                string stm = "SELECT VERSION()";
-                MySqlCommand cmd1 = new MySqlCommand(stm, conn);
-                MySqlCommand cmd2 = new MySqlCommand(stm, conn);
-                MySqlCommand cmd3 = new MySqlCommand(stm, conn);
-                cmd1.Connection = conn;
-                cmd2.Connection = conn;
-                cmd3.Connection = conn;
-
-                cmd1.CommandText = "select sum(kontener.cenaNetto)," +
-                    "count(kontener.id)," +
-                    "sum(umowa.cenaTransDocelowy), " +
-                    "sum(umowa.cenaTransPowrotny), " +
-                    "sum(umowa.cenaMeble)," +
-                    "sum(umowa.cenaMontaz), " +
-                    "sum(umowa.cenaDemontaz), " +
-                    "sum(umowa.cenaMycie), " +
-                    "sum(umowa.cenaDodatek) " +
-                    "from kontener, umowa " +
-                    "where kontener.idumowy = umowa.id and umowa.id = @idumowy";
-
-                cmd1.Prepare();
-                cmd1.Parameters.AddWithValue("@idumowy", Convert.ToInt32(idUmowy));
-
-                cmd1.ExecuteNonQuery();
-
-                cmd3.CommandText = "select numer from umowa where id=@idumowy";
-                cmd3.Prepare();
-                cmd3.Parameters.AddWithValue("@idumowy", idUmowy);
-                Console.WriteLine("Numer umowy to => " + cmd3.ExecuteScalar().ToString());
-                txUmowaNumer.Text= "Raport dla umowy - " + cmd3.ExecuteScalar().ToString();
-
-
-                cmd2.CommandText = "select sum(kontener.amortyzacja)," +
-                    "sum(umowa.kosztTransDocelowy), " +
-                    "sum(umowa.kosztTransPowrotny), " +
-                    "sum(kontener.amortyzacja)," +
-                    "sum(umowa.kosztMontaz), " +
-                    "sum(umowa.kosztDemontaz), " +
-                    "sum(umowa.kosztMycie), " +
-                    "sum(umowa.kosztDodatek) " +
-                    "from kontener, umowa " +
-                    "where kontener.idumowy = umowa.id and umowa.id = @idumowy";
-
-                cmd2.Prepare();
-                cmd2.Parameters.AddWithValue("@idumowy", Convert.ToInt32(idUmowy));
-
-
-
-
-                // Console.WriteLine("larum parum");
-                MySqlDataReader rdr = cmd1.ExecuteReader();
-                while (rdr.Read())
-                {
-                    //  Console.WriteLine(rdr.GetString(0).PadRight(18) + rdr.GetString(1).PadRight(18)+rdr.GetString(2));
-                    if (!rdr.IsDBNull(0)) { poleRSumaCenKontenerow.Text = rdr.GetString(0).ToString(); } else { poleRSumaCenKontenerow.Text = "0"; }
-                    // poleRSumaCenKontenerow.Text = rdr.GetString(0).ToString();
-                    poleRIleKont.Text = rdr.GetString(1).ToString();
-                    sumaTransport = Convert.ToDouble(rdr.GetString(2).ToString()) + Convert.ToDouble(rdr.GetString(3).ToString());
-                    poleRSumaTransport.Text = sumaTransport.ToString();
-                    poleRSumaMeble.Text = rdr.GetString(4).ToString();
-                    sumaMontazDemontaz = Convert.ToDouble(rdr.GetString(5).ToString()) + Convert.ToDouble(rdr.GetString(6).ToString());
-                    poleRSumaMontazDemontaz.Text = sumaMontazDemontaz.ToString();
-                    poleRSumaMycie.Text = rdr.GetString(7).ToString();
-                    poleRSumaObciazenia.Text = rdr.GetString(8).ToString();
-                    poleRPrzychod.Text = (Convert.ToDouble(poleRSumaCenKontenerow.Text) + Convert.ToDouble(poleRSumaTransport.Text) + Convert.ToDouble(poleRSumaMeble.Text) + Convert.ToDouble(poleRSumaMontazDemontaz.Text) + Convert.ToDouble(poleRSumaMycie.Text) + Convert.ToDouble(poleRSumaObciazenia.Text)).ToString();
-                }
-                rdr.Close();
-
-
-                MySqlDataReader rdr2 = cmd2.ExecuteReader();
-                while (rdr2.Read())
-                {
-                    //  Console.WriteLine(rdr.GetString(0).PadRight(18) + rdr.GetString(1).PadRight(18)+rdr.GetString(2));
-                    if (!rdr2.IsDBNull(0)) { poleRKNOgolnie.Text = rdr2.GetString(0).ToString(); } else { poleRKNOgolnie.Text = "0"; }
-                    // poleRSumaCenKontenerow.Text = rdr.GetString(0).ToString();
-                    // poleRIleKont.Text = rdr2.GetString(1).ToString();
-                    sumaKosztTransport = Convert.ToDouble(rdr2.GetString(1).ToString()) + Convert.ToDouble(rdr2.GetString(2).ToString());
-                    poleRKNTrasportu.Text = sumaKosztTransport.ToString();
-                    if (!rdr2.IsDBNull(3)) { poleRKNKredAmo.Text = rdr2.GetString(3).ToString(); } else { poleRKNKredAmo.Text = "0"; }
-                    //  poleRKNKredAmo.Text = rdr2.GetString(4).ToString();
-                    sumaKosztMonDemon = Convert.ToDouble(rdr2.GetString(4).ToString()) + Convert.ToDouble(rdr2.GetString(5).ToString());
-                    poleRKNMontazDemontaz.Text = sumaKosztMonDemon.ToString();
-                    poleRKNMycia.Text = rdr2.GetString(6).ToString();
-                    poleRKNNapraw.Text = rdr2.GetString(7).ToString();
-                    poleRKoszt.Text = (Convert.ToDouble(poleRKNOgolnie.Text) + Convert.ToDouble(poleRKNTrasportu.Text) + Convert.ToDouble(poleRKNKredAmo.Text) + Convert.ToDouble(poleRKNMontazDemontaz.Text) + Convert.ToDouble(poleRKNMycia.Text) + Convert.ToDouble(poleRKNNapraw.Text)).ToString();
-                }
-                rdr2.Close();
-
-
-                poleRRKont.Text = (Convert.ToDouble(poleRSumaCenKontenerow.Text) - Convert.ToDouble(poleRKNOgolnie.Text)).ToString();
-                poleRRTran.Text = (Convert.ToDouble(poleRSumaTransport.Text) - Convert.ToDouble(poleRKNTrasportu.Text)).ToString();
-                poleRRMebleSchody.Text= (Convert.ToDouble(poleRSumaMeble.Text) - Convert.ToDouble(poleRKNKredAmo.Text)).ToString();
-                poleRRMonDem.Text = (Convert.ToDouble(poleRSumaMontazDemontaz.Text) - Convert.ToDouble(poleRKNMontazDemontaz.Text)).ToString();
-                poleRRMyc.Text = (Convert.ToDouble(poleRSumaMycie.Text) - Convert.ToDouble(poleRKNMycia.Text)).ToString();
-                poleRRDod.Text = (Convert.ToDouble(poleRSumaObciazenia.Text) - Convert.ToDouble(poleRKNNapraw.Text)).ToString();
-                poleRRZysk.Text= (Convert.ToDouble(poleRPrzychod.Text) - Convert.ToDouble(poleRKoszt.Text)).ToString();
-
-
-            }
-            catch (MySqlException se)
-            {
-                System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-            }
-            
-
-        }
-
-        public void wypelnijTabeleUmowy()
-        {
-          
-            try
-            {
-                MySqlConnection conn = PolaczenieDB.polaczenieZBazaDanych();
-                string stm = "SELECT VERSION()";
-                MySqlCommand cmdlog = new MySqlCommand(stm, conn);
-                cmdlog.Connection = conn;
-                // cmdlog.CommandText = "select * from umowy, kontenery, klienci, faktury where kontenery.fk_um_id=umowy.um_id and umowy.um_id=klienci.klient_id and umowy.fk_fa_id=faktury.fa_id";
-                //cmdlog.CommandText = "select um_id, um_nrUmowy, um_dataRozpoczeciaUmowy, um_dataZakonczeniaUmowy, um_czyToAneks, um_aneksDoUmowy, klient_nazwa from umowy, klienci where umowy.fk_klient_id=klienci.klient_id;";
-                cmdlog.CommandText = "select * from umowa, klient where umowa.idklienta=klient.id";
-
-                cmdlog.Prepare();
-
-                cmdlog.ExecuteNonQuery();
-                MySqlDataAdapter da = new MySqlDataAdapter(cmdlog);
-                MySqlCommandBuilder ccc = new MySqlCommandBuilder(da);
-                //DataTable dt = new DataTable();
-                DataTable dt = new DataTable();
-
-                da.Fill(dt);
-                grid_umowy.DataContext = dt;
-
-            }
-            catch (MySqlException se)
-            {
-                System.Windows.MessageBox.Show("Wystąpił błąd połączenia: " + se.ToString());
-            }
-
+            menadzerRaportyDB.SprawdzRaport(idUmowy, rSumaCenKonteneroW, rIleKont, rSumaTransport, rSumaMeble, rSumaMontazDemontaz, rSumaMycie, rSumaObciazenia, rPrzychod, rKNOgolnie, rKNTrasportu, rKNMontazDemontaz, rKNMycia, rKNNapraw, rKoszt, rRKont, rRTran, rRMebleSchody, rRMonDem, rRMyc, rRDod, rRZysk, txUmowaNumerI, rKNKredAmo);
 
 
         }
 
+  
+
+   
         private void PowrotSpisRaportBTN_Click(object sender, RoutedEventArgs e)
         {
-            wypelnijTabeleUmowy();
+            menadzerRaportyDB.WypelnijTabeleUmowy(grid_umowy);
             uRaportWykaz.Visibility = Visibility.Visible;
             uRaportWybrany.Visibility = Visibility.Collapsed;
         
-    }
+        }
 
         private void DrukujRaportExcelBTN_Click(object sender, RoutedEventArgs e)
         {
